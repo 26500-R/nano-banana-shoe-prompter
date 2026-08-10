@@ -16,7 +16,7 @@ Use 20–28 mm. Place one shoe close to the lens in the lower foreground and the
 
 Suggested priority language:
 
-> 最终画面优先保证原场景与服装的视觉延续、鞋履的视觉冲击力、低机位广角透视和人物姿态的自然张力。
+> 最终画面优先保证原场景与服装的视觉延续、鞋类产品的视觉冲击力、低机位广角透视和人物姿态的自然张力。
 
 ## High-angle full body
 
@@ -50,6 +50,6 @@ Vary the mix to suit the visible environment and footwear. Do not force sitting 
 
 When the reference contains overlaid marketing text or watermarks and the user wants a clean photograph, describe the desired pixels positively:
 
-> 输出为纯摄影画面，墙面、地面或背景纹理在原文字区域自然连续，只保留真实存在于场景中的人物、服装、鞋履、家具和环境元素。
+> 输出为纯摄影画面，墙面、地面或背景纹理在原文字区域自然连续，只保留真实存在于场景中的人物、服装、鞋类产品、家具和环境元素。
 
 Do not confuse physical signage or branding on the product with overlaid page-layout text.

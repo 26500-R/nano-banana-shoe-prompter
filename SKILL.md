@@ -49,6 +49,18 @@ Pair the lens with a compatible pose:
 
 If the user's taste is known, respect it without turning it into a universal rule. A preference for wide angle means use it where it strengthens the image, not in every shot.
 
+## Aspect ratio selection
+
+Resolve the output ratio in this order:
+
+1. Use the user's explicitly requested aspect ratio and orientation.
+2. If the user gives no ratio, preserve the original reference image's aspect ratio and orientation.
+3. Only when the reference ratio cannot be determined reliably, choose by intended use: 3:4 or 4:5 for full-body commerce, 4:5 for social portrait posts, 9:16 for mobile vertical content, 16:9 or 3:2 for horizontal environmental advertising, and 1:1 for square product presentation.
+
+Do not hard-code `3:4` or any other ratio into every prompt. State a numeric ratio only when the user requests it or when intentionally changing an unusable or unknown source ratio. Otherwise write:
+
+> 保持与原始参考图片相同的画幅比例和画面方向。
+
 ## Prompt construction
 
 Build each prompt in this order:
@@ -57,7 +69,7 @@ Build each prompt in this order:
 2. **Single hero objective** — name the one outcome that should dominate model selection.
 3. **Pose geometry** — body direction, weight-bearing leg, hand placement, and explicit left/right or foreground/background foot positions.
 4. **Camera** — direction, height, lens family, distance, and tilt.
-5. **Composition** — aspect ratio, crop, foreground/midground/background positions, and visible floor around the shoes.
+5. **Composition** — resolve aspect ratio with the rules above, then define crop, foreground/midground/background positions, and visible floor around the shoes.
 6. **Completion criteria** — natural anatomy, ground contact, clean shoe contours, and preservation of the reference visual system.
 
 Use concise natural Chinese. Detail the requested change; summarize what must remain. For complex shots, use short ordered paragraphs rather than a long rule list.
