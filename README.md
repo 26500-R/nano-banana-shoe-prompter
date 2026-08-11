@@ -91,6 +91,9 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 nano-banana-shoe-prompter/
 ├── SKILL.md
 ├── README.md
+├── assets/
+│   ├── icon-400.png
+│   └── icon.svg
 ├── agents/
 │   └── openai.yaml
 └── references/
@@ -192,6 +195,9 @@ Use $nano-banana-shoe-prompter to compare the reference and generated result, ev
 nano-banana-shoe-prompter/
 ├── SKILL.md
 ├── README.md
+├── assets/
+│   ├── icon-400.png
+│   └── icon.svg
 ├── agents/
 │   └── openai.yaml
 └── references/
