@@ -92,6 +92,8 @@ nano-banana-shoe-prompter/
 ├── SKILL.md
 ├── README.md
 ├── assets/
+│   ├── icon-small.png
+│   ├── icon-large.png
 │   ├── icon-400.png
 │   └── icon.svg
 ├── agents/
@@ -196,6 +198,8 @@ nano-banana-shoe-prompter/
 ├── SKILL.md
 ├── README.md
 ├── assets/
+│   ├── icon-small.png
+│   ├── icon-large.png
 │   ├── icon-400.png
 │   └── icon.svg
 ├── agents/
