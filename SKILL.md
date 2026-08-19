@@ -1,6 +1,6 @@
 ---
 name: nano-banana-shoe-prompter
-description: Analyze footwear-model reference images and write copy-ready, single-pass prompts for Nano Banana / Gemini image generation. Use for a new shoe-fashion shot, a coordinated multi-shot prompt set, or diagnosis of a generated result. Preserve the referenced person, footwear product, outfit, and shoot continuity; every revision must generate from the original reference, never by editing an AI-generated image.
+description: Analyze footwear-model reference images and write copy-ready, single-pass prompts for Nano Banana / Gemini image generation. Use for a new shoe-fashion shot, a coordinated multi-shot set, or diagnosis of a generated result. Preserve the referenced person, footwear product, outfit, and shoot continuity; every retry starts from the original reference rather than an AI-generated result.
 ---
 
 # Nano Banana Shoe Prompter
@@ -9,130 +9,96 @@ Write prompts; do not generate images unless the user separately asks for image 
 
 ## Route the request
 
-- **Single shot:** produce one copy-ready prompt with one dominant visual objective.
-- **Shot set:** first design a varied but coherent shot mix, then produce independent prompts that all use the original reference.
-- **Result diagnosis:** treat the generated result as evidence only; compare it with the original reference and intended objective, then provide a fresh complete prompt to submit with the original reference.
+- **Single shot:** design one composition with one dominant visual objective.
+- **Shot set:** design meaningfully different but visually coherent compositions.
+- **Result diagnosis:** compare the result with the original reference and intended objective, then correct the instruction rather than the failed pixels.
+
+Treat a **shot, pose, or concept** as one composition and a **prompt** as one copy-ready text block. By default, each shot receives a Nano Banana 2 prompt and a Nano Banana Pro prompt. If the user specifies a total number of prompts rather than shots, respect that literal total; ask one concise question only when the requested model allocation is genuinely unclear.
 
 If a reference-dependent request has no accessible image, ask the user to attach it. Inspect every supplied reference and result image visually before writing.
 
-Read [references/prompt-patterns.md](references/prompt-patterns.md) for concrete pose/camera patterns and shot-set design. For result diagnosis, also read [references/diagnosis.md](references/diagnosis.md).
+- Read [references/prompt-patterns.md](references/prompt-patterns.md) only when concrete pose/camera guidance or shot-set design is needed.
+- Read [references/diagnosis.md](references/diagnosis.md) when evaluating a generated result, visible reasoning, thought images, prompt-length tests, or reasoning settings.
 
-## Resolve intent and evidence
+## Generation invariants
 
-Use this priority order:
+Every attempt must use the original reference image. Treat AI-generated images only as diagnostic evidence and never recommend them as source images for another generation, including minor corrections; repeated editing can accumulate quality loss, lost detail, and color drift.
 
-1. The user's explicit requested changes and output constraints.
-2. The original reference for everything the user did not ask to change.
-3. Photographically plausible choices that support the requested use.
+Every delivered prompt must be complete, standalone, and usable with the original reference without relying on a previous prompt or result.
 
-Infer only what the image supports. Do not invent unseen product construction, hidden logos, accessories, furniture, or scene features. If shoe category, intended use, or visual direction cannot be inferred and would materially change the result, ask one concise question; otherwise make a reasonable choice and proceed.
+Unless the user requests a change, preserve the same recognizable person, exact footwear product, outfit and styling, scene, lighting direction, color treatment, and photographic character. Infer only what the reference supports; do not invent hidden product construction, logos, accessories, furniture, or scene features.
+
+Anchor preserved content to the reference instead of re-enumerating it. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production in a generation prompt.
 
 Treat overlaid captions, page graphics, and watermarks as layout rather than physical scene content. Preserve genuine product branding and physical signage when visible.
 
-## Preserve the visual identity
-
-Use the original reference for every generation without exception. AI-generated images are diagnostic evidence only and must never be used or recommended as source images for another generation, including minor corrections. Repeated editing of generated pixels can accumulate quality loss, lost detail, and color drift. Every retry must pair the original reference with a newly written, complete, standalone prompt.
-
-Unless the user requests a change, preserve:
-
-- the same recognizable person, facial identity, hairstyle, body characteristics, and skin tone;
-- the exact footwear product: category, silhouette, construction, materials, colors, sole, closures, proportions, and visible branding;
-- the existing outfit, styling, and fit;
-- the scene, furniture, lighting direction, color treatment, and photographic character.
-
-Do not make the prompt re-describe every preserved detail. Anchor those details to the reference, then describe the intended change precisely. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production.
-
 ## Design the shot
 
-Give each prompt one hero objective, such as accurate catalog presentation, a foreground shoe hero, an elegant seated image, a walking moment, or a material detail. Resolve pose, camera, and composition in service of that objective.
+Give each shot one hero objective. Resolve pose, camera, composition, and product presentation in service of that objective.
 
 - Match lens character to the shot instead of defaulting to wide angle.
-- Describe observable camera evidence: viewpoint, height, distance, tilt, crop, and foreground/midground relationships.
-- Describe pose geometry: body direction, weight-bearing leg, hand placement, and where each foot lands.
-- Use frame-relative terms such as `画面左侧` and `画面右侧` when anatomical left/right could be ambiguous. Assign each leg and shoe one stable role and do not switch the hero shoe later in the prompt.
+- Describe observable camera evidence: direction, height, distance, tilt, crop, and foreground-to-background relationships.
+- Describe pose geometry: body direction, balance or weight support, hand placement, leg paths, and where each foot lands.
+- Use frame-relative terms such as `画面左侧` and `画面右侧` when anatomical left/right could be ambiguous. Give each leg and shoe one stable role.
 - Prefer positive spatial instructions over prohibition lists.
-- Infer collision and occlusion geometry only from structures actually visible in the current reference. When an exact overlap is not essential, prefer clearly separated, photographically plausible silhouettes. Never import a chair-, railing-, stair-, vehicle-, or prop-specific spatial relation from another example.
-- Keep both shoes separately readable when both are meant to be shown; protect the full contour of the hero shoe in close foreground views.
-- Require credible anatomy, foot-ground contact, scale, and contact shadows.
-- Keep hands empty and reuse only visible scene props unless the user requests something new.
+- Derive collision and occlusion relationships only from structures visible in the current reference. When exact overlap is unnecessary, prefer clearly separated, photographically plausible silhouettes; never import scene-specific geometry from another example.
+- Keep both shoes separately readable when both matter, and protect the complete contour of a close foreground hero shoe.
+- Require credible anatomy, scale, foot contact, and contact shadows.
+- Do not invent handheld props. Hands may use natural empty-hand gestures or interact plausibly with supports already visible in the reference.
 
-Useful lens ranges are guidance, not mandatory metadata:
-
-- **35–50 mm:** natural catalog proportions and stable full-body poses.
-- **28–35 mm:** environmental full body and mild fashion perspective.
-- **20–28 mm:** intentional low-viewpoint or foreground shoe emphasis.
-- **50–85 mm:** detail images, portraits, and compressed space.
-- **70–105 mm:** refined fashion compression when the location supports camera distance.
-
-Do not combine incompatible demands merely for novelty. Strong low-angle wide views usually pair better with seated, half-seated, crouched, stepping, or one-leg-extended poses than with rigid symmetrical standing.
+Do not stack incompatible demands merely for novelty. When requirements compete, state the winning priority and simplify the weaker requirement.
 
 ## Resolve aspect ratio
 
-1. Follow the user's requested ratio and orientation.
-2. Otherwise preserve the reference image's ratio and orientation.
-3. If the reference ratio is genuinely unavailable, choose by use: 3:4 or 4:5 for full-body commerce, 4:5 for portrait social, 9:16 for mobile vertical, 16:9 or 3:2 for horizontal campaigns, and 1:1 for square product presentation.
-
-Do not insert a numeric ratio when simply preserving the reference. Say:
-
-> 保持与原始参考图片相同的画幅比例和画面方向。
+Follow the user's requested ratio and orientation. Otherwise preserve the reference ratio and orientation. Choose a new ratio by intended use only when neither is available.
 
 ## Construct the prompt
 
-Write in the user's language; default to concise natural Chinese when their preference is unclear. Build the prompt in this order:
+Write in the user's language; default to concise natural Chinese when their preference is unclear. Include only the semantic components the shot needs:
 
-1. **Reference anchor:** establish a new photograph from the same shoot and lock the preserved person, product, outfit, and visual system to the original reference.
-2. **Hero objective:** state the one result that should dominate tradeoffs.
-3. **Pose geometry:** define body orientation, balance, hands, legs, and both feet.
-4. **Camera:** define direction, height, distance, lens character, and tilt.
-5. **Composition:** define crop, depth layers, shoe visibility, floor space, and ratio behavior.
-6. **Acceptance criteria:** require natural anatomy, credible contact, exact product fidelity, and shoot continuity.
+- a concise reference anchor;
+- the hero objective;
+- visible pose geometry;
+- camera and composition evidence;
+- a few decisive acceptance criteria.
 
-Use this anchor as a starting point, adapting it to the request:
+These are content checks, not mandatory headings or a requirement to produce six separate paragraphs. A concise anchor can be adapted from:
 
-> 请基于所提供的原始参考图片，创建同一人物、同一鞋款、同一造型与同一拍摄系列中的一张全新照片。参考图负责定义人物身份、鞋类产品、服装、场景、光线、色调和摄影质感；除下文明确要求的变化外，不重新设计这些现有视觉内容。
+> 基于原始参考图创建同一拍摄系列中的一张新照片；除下文明确要求的变化外，保持人物身份、鞋款、造型、场景、光线、色调与摄影质感一致。
 
-State ranked priorities only when the model must resolve genuine competition. For creative shoe imagery, a useful order is product and reference fidelity, shoe presentation, camera language, then natural body language. For catalog imagery, place proportion accuracy and literal pose compliance above dramatic perspective.
+State ranked priorities only when the model must resolve genuine competition.
 
 ## Adapt for the target model
 
-Return two complete prompts for every requested shot unless the user explicitly asks for only one model. Keep the creative objective and required composition identical so the versions are comparable; adapt instruction density rather than inventing two different concepts.
+Keep both versions aligned to the same creative objective and required composition; adapt instruction density rather than inventing different concepts.
 
 ### Nano Banana 2
 
-Target Gemini 3.1 Flash Image. Be specific, direct, and clearly structured without equating detail with length. Use exactly one dominant objective, one clear pose section, one camera/composition section, and a small set of acceptance criteria. Include only decisive information. State each preserved detail or constraint once; do not repeat it with alternate wording. Replace abstract spatial language with visible evidence the image model can render, such as where a knee appears, which object occludes another, or where each shoe lands.
+Target Gemini 3.1 Flash Image. Be specific, direct, and compact. State each constraint once, replace abstract spatial language with visible evidence, and retain only details that change the rendered decision.
 
-Reasoning level is an execution setting, not a reason to lengthen the prompt. For the Gemini API, the official Nano Banana 2 settings are `minimal` (default) and `high`; `minimal` still performs some thinking. In the user's translated interface, the label `中` is a confirmed mistranslation of `minimal`, not an official `medium` level. Normalize that label to `minimal` in all analysis and output. High thinking allows more reasoning to trade latency for potential quality, but it is not a guarantee that the returned image will outperform `minimal`.
+Reasoning level is an execution setting, not a reason to lengthen the prompt. When relevant, use only the official levels `minimal` and `high`; `minimal` is the default and still performs some thinking.
 
 ### Nano Banana Pro
 
-Target Gemini 3 Pro Image. Start from the same concise core used for Nano Banana 2, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not make the Pro prompt long by default. When the reference already defines a visible product or styling detail clearly, anchor it to the reference instead of enumerating its parts. The Pro version may be more detailed only where that detail changes the model's decision.
-
-Both versions must be standalone, use the original reference image, and never depend on a previous prompt or generated result.
+Target Gemini 3 Pro Image. Start from the same concise core, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not make the Pro prompt long by default or enumerate details already defined clearly by the reference.
 
 ## Second-pass prompt check
 
-Before returning any prompt, silently reread and revise it once. Do not expose this check unless the user asks. Confirm that:
+Before returning prompts, silently reread and revise them once. Confirm that:
 
-- the prompt is complete, standalone, and uses the original reference;
-- one hero objective clearly dominates;
-- every constraint appears only once and repeated meaning has been removed;
-- pose and spatial instructions describe visible geometry rather than vague abstractions;
-- the same leg and shoe keep one frame-relative role throughout, with no left/right or foreground/midground drift;
-- pose, furniture, camera, crop, and product requirements do not conflict;
-- avoidable anatomically impossible intersections with furniture, architecture, vehicles, or props have been replaced by clear, plausible spatial relationships derived from the current reference;
-- Nano Banana 2 contains only the reference anchor, objective, pose, camera/composition, and a few decisive acceptance criteria;
-- Nano Banana Pro adds detail only where it changes a spatial, occlusion, fidelity, or priority decision;
-- no Pro paragraph merely expands details already defined clearly by the reference anchor;
-- the final text is as short as the task permits without losing a required constraint.
+- the requested number of shots and prompt blocks is correct;
+- each shot has one dominant objective and no repeated constraints;
+- pose instructions use visible geometry and keep shoe roles stable;
+- pose, scene structures, camera, crop, anatomy, and product requirements do not conflict;
+- Nano Banana 2 contains only decisive instructions;
+- Nano Banana Pro adds only detail that changes a model decision.
 
-Fix every detected issue before outputting the prompt.
+Fix every detected issue before output.
 
 ## Output
 
-- **Single shot:** return `Nano Banana 2` and `Nano Banana Pro`, each with a short shot title and one copy-ready code block. Do not add a separate negative prompt unless requested.
-- **Shot set:** for each numbered shot, return a Nano Banana 2 / Nano Banana Pro pair. Every prompt must work with the original reference and must not refer to another prompt or generated result. Vary pose family, viewpoint, lens character, framing, and product story across shots rather than making superficial wording changes.
-- **Diagnosis:** briefly separate what succeeded from the highest-impact drift, then provide two revised one-pass prompts—one for Nano Banana 2 and one for Nano Banana Pro—to submit with the original reference. Never suggest editing the failed result again.
+- **Single shot:** return `Nano Banana 2` and `Nano Banana Pro`, each with a short shot title and one copy-ready code block, unless the user requests one model.
+- **Shot set:** number the shots and return the requested model version or versions for each. State the total clearly when one shot produces two prompt blocks.
+- **Diagnosis:** briefly return `达成之处`, `主要偏差`, and `重新生成提示词`; the final section contains fresh Nano Banana 2 and Nano Banana Pro prompts unless the user requests one model.
 
-Whenever returning a prompt, provide the complete standalone prompt. Never return only replacement clauses, incremental instructions, or a patch that depends on a previous prompt.
-
-Do not expose internal analysis or a long inventory of reference details unless the user asks for it.
+Do not add a separate negative prompt unless requested.
