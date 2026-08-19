@@ -10,24 +10,30 @@
 
 ### 主要功能
 
-- 识别参考图中的场景、服装、构图、光线和可用空间关系；
+- 锁定参考图中的人物身份、鞋款结构、服装造型和拍摄视觉系统；
 - 为鞋类产品展示选择匹配的姿势、机位、景别和镜头；
 - 根据画面目标灵活使用自然透视、广角或中长焦；
 - 用户未指定比例时自动沿用参考图的画幅比例和方向；
 - 生成从原始参考图出发的独立单次成图提示词；
-- 支持单个镜头、整套多姿势方案和生成结果诊断；
+- 默认针对同一镜头分别输出 Nano Banana 2 精简版与 Nano Banana Pro 专业制作版；
+- 将生成结果仅用于诊断；禁止把 AI 生成图作为下一轮输入继续编辑；
+- 支持单个镜头、去重后的多镜头方案和按影响程度排序的生成结果诊断；
 - 默认使用正向空间描述，不输出独立负面提示词；
 - 避免向图像模型透露后期换脸、换鞋或局部修复计划；
 - 优先保持参考图的场景、服装、光线、色调和摄影质感。
 
 ### 设计原则
 
-1. 每个新画面都使用原始参考图，不连续编辑中间生成图。
+1. 每个新画面都必须使用原始参考图；生成图仅用于诊断，禁止连续编辑或作为下一轮输入，避免画质下降、细节丢失和颜色偏移。
 2. 参考图负责定义已有视觉内容，文字重点描述需要改变的动作和摄影机。
 3. 每条提示词只设置一个主要视觉目标，减少互相冲突的要求。
 4. 镜头并非固定为广角：标准电商展示可使用自然透视，鞋类主视觉才按需使用强广角。
 5. 姿势需要与镜头匹配，例如低机位强广角更适合坐姿、半坐姿、迈步或单腿前伸。
 6. 画幅比例遵循“用户指定优先，其次沿用参考图，最后才按用途判断”，不会固定输出为3:4。
+7. 多镜头方案在姿势、机位、镜头特征、景别和产品叙事上形成实质差异，同时保持同一拍摄系列的连续性。
+8. 结果诊断优先检查鞋款、人物身份和产品可读性，再纠正姿势、镜头与画面清洁度。
+9. 两个模型版本保持相同创意目标：Nano Banana 2 使用精简直接的关键指令，Nano Banana Pro 仅在复杂空间、遮挡与验收优先级上增加有效细节。
+10. 每条提示词输出前进行二次检查：删除重复语义，将抽象空间描述改成可见画面关系，排除姿势、家具、镜头与产品要求之间的冲突。
 
 ### 安装
 
@@ -99,7 +105,8 @@ nano-banana-shoe-prompter/
 ├── agents/
 │   └── openai.yaml
 └── references/
-    └── prompt-patterns.md
+    ├── prompt-patterns.md
+    └── diagnosis.md
 ```
 
 ### 说明
@@ -116,24 +123,30 @@ The skill does not generate images itself. It interprets the scene, outfit, pose
 
 ### Features
 
-- Analyzes the reference scene, outfit, composition, lighting, and usable spatial relationships;
+- Locks the referenced identity, exact footwear design, outfit, and photographic system;
 - Selects a suitable pose, camera position, framing, and lens for the footwear objective;
 - Chooses natural perspective, wide angle, or telephoto adaptively instead of forcing one lens style;
 - Preserves the reference aspect ratio and orientation when the user does not specify a new ratio;
 - Produces independent, single-pass prompts that always start from the original reference image;
-- Supports single shots, multi-pose prompt sets, and generated-result diagnosis;
+- Produces both a concise Nano Banana 2 version and a professional-production Nano Banana Pro version for the same shot by default;
+- Treats generated results as diagnostic evidence only and never uses them as inputs for another edit;
+- Supports single shots, meaningfully varied shot sets, and impact-ranked result diagnosis;
 - Uses positive spatial descriptions by default instead of a separate negative prompt;
 - Avoids telling the image model about later face swaps, shoe replacement, or local repair;
 - Prioritizes continuity of the reference scene, outfit, lighting, color, and photographic character.
 
 ### Design principles
 
-1. Start every new shot from the original reference image rather than repeatedly editing generated outputs.
+1. Start every new shot from the original reference image. Generated images are diagnosis-only and must never be edited again or used as the next input, preventing cumulative quality loss, lost detail, and color drift.
 2. Let the reference define existing visual details; use text mainly to describe the requested pose and camera changes.
 3. Give each prompt one dominant visual objective to reduce conflicting instructions.
 4. Do not force wide angle into every shot: use natural perspective for standard catalog work and stronger wide angle only when it improves the shoe-led composition.
 5. Match the pose to the lens. Strong low-angle wide shots often work better with seated, half-seated, stepping, or one-leg-extended poses.
 6. Resolve aspect ratio by priority: explicit user request, then the reference ratio, and only then an intended-use fallback. Never force every output to 3:4.
+7. Make shot sets meaningfully different in pose, viewpoint, lens character, framing, and product story while retaining campaign continuity.
+8. Diagnose product fidelity, identity, and product readability before pose, camera, and image-cleanliness issues.
+9. Keep both model versions creatively aligned: Nano Banana 2 gets concise decisive instructions, while Nano Banana Pro adds detail only for meaningful spatial, occlusion, and acceptance decisions.
+10. Run a silent second-pass check before output: remove repeated meaning, replace abstract spatial language with visible relationships, and resolve conflicts among pose, furniture, camera, and product requirements.
 
 ### Installation
 
@@ -205,7 +218,8 @@ nano-banana-shoe-prompter/
 ├── agents/
 │   └── openai.yaml
 └── references/
-    └── prompt-patterns.md
+    ├── prompt-patterns.md
+    └── diagnosis.md
 ```
 
 ### Disclaimer

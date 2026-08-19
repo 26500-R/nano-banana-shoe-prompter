@@ -1,7 +1,7 @@
 interface:
   display_name: "Nano Banana 鞋类提示词"
-  short_description: "识别参考图片并生成适合Nano Banana 2单次成图的专业鞋类摄影提示词"
+  short_description: "分析鞋类参考图，分别生成 Nano Banana 2 与 Pro 专业提示词"
   icon_small: "./assets/icon-small.png"
   icon_large: "./assets/icon-large.png"
   brand_color: "#F5C842"
-  default_prompt: "使用 $nano-banana-shoe-prompter 分析这张参考图，并生成一条适合 Nano Banana 2 一次成图的鞋类摄影提示词。"
+  default_prompt: "使用 $nano-banana-shoe-prompter 分析这张鞋类参考图，并分别生成适合 Nano Banana 2 与 Nano Banana Pro 单次成图的完整提示词。"

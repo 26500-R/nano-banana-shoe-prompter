@@ -1,55 +1,86 @@
 # Prompt Patterns
 
-Use these as compositional patterns, not as text to copy blindly. Preserve the reference through a short anchor and describe only the intended change in detail.
+Use these as decision patterns, not text templates. Anchor preserved details to the original reference and describe the intended change in detail. Every pattern is conditional: apply it only when the current reference contains the required scene structure, and never import geometry or props from another example.
 
-## Natural catalog full body
+## Shot patterns
 
-Use 35–50 mm. Put weight on one leg and move the other foot slightly forward or outward. Keep both shoe contours independent and show a modest amount of floor. Favor accurate proportions over spectacle.
+### Natural catalog full body
 
-## Environmental fashion full body
+Use a 35–50 mm look. Put weight on one leg and move the other foot slightly forward or outward. Keep both shoe contours separate, show enough floor to verify contact, and favor product proportion accuracy over spectacle.
 
-Use 28–35 mm. Position the subject within an existing part of the reference environment. Create depth with foreground, subject, and background rather than inventing furniture or accessories.
+### Environmental fashion full body
 
-## Low-angle shoe hero
+Use a 28–35 mm look. Place the subject within a visible, usable part of the reference environment. Build depth from existing foreground, subject, and background elements instead of inventing furniture or accessories.
 
-Use 20–28 mm. Place one shoe close to the lens in the lower foreground and the other in the midground. State which leg bears weight and how the body recedes through the frame. Favor a seated, half-seated, stepping, or extended-leg pose when it produces a more natural perspective than rigid standing.
+### Low-angle shoe hero
+
+Use a deliberate 20–28 mm look. Put one complete shoe in the lower foreground and the other in the midground. State which leg bears weight and how the body recedes through the frame. A seated, half-seated, stepping, crouched, or extended-leg pose generally handles this perspective better than rigid standing.
 
 Suggested priority language:
 
-> 最终画面优先保证原场景与服装的视觉延续、鞋类产品的视觉冲击力、低机位广角透视和人物姿态的自然张力。
+> 最终画面依次优先保证鞋款与参考图一致、前景主鞋完整清晰、低机位空间纵深成立，以及人物姿态自然可信。
 
-## High-angle full body
+### High-angle full body
 
-Describe visual evidence instead of only saying “high angle”: camera above the head, visible top of head and shoulders, visible shoe uppers, compressed body depth, and a substantial floor area. Use 28–35 mm for a natural result or 20–28 mm for deliberate fashion exaggeration.
+Describe evidence rather than only naming the angle: camera above the head, visible top of head and shoulders, visible shoe uppers, compressed body depth, and substantial floor around the subject. Use 28–35 mm for a natural result or 20–28 mm for intentional exaggeration.
 
-## Seated shoe presentation
+### Seated shoe presentation
 
-Use an existing seat only. Specify pelvis placement, torso direction, which leg extends, where the other foot lands, and how the two shoes occupy separate frame regions. Keep hands empty unless an existing prop interaction is essential.
+Use only a seat visible in the reference. Specify pelvis placement, torso direction, which leg extends, where the other foot lands, and how the two shoes occupy separate frame regions. Keep hands empty unless an existing prop interaction supports the shot.
 
-## Walking frame
+Conditional armchair pattern — apply only when the current reference actually contains an armchair with two visible front posts: place both knees between the two front posts, keep the posts visible outside the legs, bring both legs over the front edge of the seat, and separate the shoes across foreground and midground. Do not make exact limb-over-post occlusion a success condition unless the requested composition truly requires it; a narrow post crossing a thigh, knee, or calf raises the risk of an anatomically impossible furniture intersection. Do not transfer this geometry to references without that exact chair structure.
 
-Specify the front foot, rear foot, weight transfer, and camera direction. Ask for a crisp captured stride with natural contact rather than describing motion blur. Use 28–35 mm for environmental movement or 35–50 mm for cleaner catalog motion.
+Use `画面左侧` and `画面右侧` instead of relying on the subject's left and right. Define the foreground hero shoe once and keep that assignment unchanged throughout the prompt.
 
-## Detail frame
+### Walking frame
 
-Use 50–85 mm. Frame around the knee, ankle, and shoe. Keep the main shoe complete and show the relevant surface, material, side profile, or contact shadow. Avoid adding claims about unseen product construction.
+Specify the leading foot, trailing foot, weight transfer, stride direction, and camera direction. Ask for a crisp captured moment with credible ground contact. Use 28–35 mm for environmental movement or 35–50 mm for cleaner catalog motion.
 
-## Suggested 20-shot mix
+### Product detail
 
-- 5 natural or mild-wide standing images
-- 3 seated images
-- 3 walking or transitional images
-- 2 high-angle images
-- 2 low-angle wide shoe heroes
-- 3 shoe or material close-ups
-- 2 environment-led creative images
+Use a 50–85 mm look and frame around the knee, ankle, and shoe. Keep the hero shoe complete and show only visible material, surface, side-profile, or sole details. Preserve construction and branding; do not infer features hidden in the reference.
 
-Vary the mix to suit the visible environment and footwear. Do not force sitting when there is no existing seat, and do not force strong wide angle into every image.
+## Designing a shot set
+
+Choose a mix that fits the reference environment and the requested count. Cover distinct product stories rather than filling a quota. A balanced 10-shot set might contain:
+
+- 3 natural or mild-wide standing images;
+- 2 seated or supported poses, only if the scene supports them;
+- 2 walking or transitional moments;
+- 1 high-angle image;
+- 1 low-angle shoe hero;
+- 1 product detail.
+
+For larger sets, add environment-led creative frames, alternate sides of the product, and restrained variations within each family. Do not force every available pattern into a small set.
+
+Before finalizing, check that adjacent shots differ meaningfully in at least three of these dimensions:
+
+- pose family;
+- camera height or direction;
+- lens character;
+- crop or subject scale;
+- which shoe surface is communicated;
+- emotional or commercial purpose.
+
+Keep campaign continuity across the set: same person, exact shoe product, outfit, scene logic, lighting family, color treatment, and overall retouching character.
+
+## Common conflict pairs
+
+Avoid stacking these unless the user explicitly prioritizes the tradeoff:
+
+- rigid symmetrical standing + extreme low angle + oversized foreground shoe;
+- both shoes equally dominant + one shoe extremely close to lens;
+- exact catalog proportions + dramatic ultra-wide distortion;
+- tight shoe detail + full-body pose readability;
+- strong overhead evidence + low-horizon environmental depth;
+- large pose change + exact preservation of the original silhouette.
+
+When a conflict is requested, state the winning priority and simplify the losing requirement.
 
 ## Clean photographic output
 
 When the reference contains overlaid marketing text or watermarks and the user wants a clean photograph, describe the desired pixels positively:
 
-> 输出为纯摄影画面，墙面、地面或背景纹理在原文字区域自然连续，只保留真实存在于场景中的人物、服装、鞋类产品、家具和环境元素。
+> 输出为纯摄影画面，原文字覆盖区域由连续自然的墙面、地面或背景纹理填充；只保留真实存在于场景中的人物、服装、鞋类产品、家具和环境元素。
 
-Do not confuse physical signage or branding on the product with overlaid page-layout text.
+Do not remove physical signage or genuine branding printed on the product.
