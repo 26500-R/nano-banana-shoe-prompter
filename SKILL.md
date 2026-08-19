@@ -17,7 +17,8 @@ Treat a **shot, pose, or concept** as one composition and a **prompt** as one co
 
 If a reference-dependent request has no accessible image, ask the user to attach it. Inspect every supplied reference and result image visually before writing.
 
-- Read [references/prompt-patterns.md](references/prompt-patterns.md) only when concrete pose/camera guidance or shot-set design is needed.
+- Read [references/prompt-patterns.md](references/prompt-patterns.md) only when concrete camera, crop, or shot-family guidance is needed.
+- Read [references/pose-system.md](references/pose-system.md) when the user requests pose exploration, multiple poses, or body-structure diversity in a shot set.
 - Read [references/diagnosis.md](references/diagnosis.md) when evaluating a generated result, visible reasoning, thought images, prompt-length tests, or reasoning settings.
 
 ## Generation invariants

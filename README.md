@@ -12,6 +12,7 @@
 - 每次重新生成都使用原始参考图，生成图只用于诊断；
 - 每条提示词完整独立，不依赖上一条提示词或生成结果；
 - 每个镜头只设置一个主要视觉目标，并按目标选择姿势、机位和镜头特征；
+- 多镜头通过支撑状态、躯干方向、腿部动作和鞋履展示目标产生实质差异，不以左右镜像或单纯改变机位充数；
 - 默认输出同一镜头的 Nano Banana 2 与 Nano Banana Pro 两个版本；
 - Pro 仅为会改变空间、遮挡、产品还原或优先级决策的部分增加细节；
 - 输出前删除重复语义并检查人体、场景结构、镜头与产品要求是否冲突。
@@ -64,6 +65,7 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 
 - `SKILL.md`：核心工作流与输出规则；
 - `references/prompt-patterns.md`：按需读取的镜头与构图模式；
+- `references/pose-system.md`：按需读取的姿势决策、场景兼容与多镜头去重规则；
 - `references/diagnosis.md`：按需读取的结果、思考过程和对照测试诊断规则；
 - `agents/openai.yaml` 与 `assets/`：技能展示信息和图标。
 
@@ -81,6 +83,7 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 - Start every retry from the original reference; generated images are diagnosis-only.
 - Make every prompt complete and independent of previous prompts or results.
 - Give each shot one dominant objective and choose pose, camera, and lens character accordingly.
+- Create meaningful shot-set variation through support state, torso direction, leg action, and footwear presentation; mirroring sides or changing only the camera does not count.
 - Return aligned Nano Banana 2 and Nano Banana Pro versions by default.
 - Add Pro detail only when it changes a spatial, occlusion, product-fidelity, or priority decision.
 - Remove repeated meaning and resolve conflicts before output.
@@ -133,6 +136,7 @@ Use $nano-banana-shoe-prompter to compare the original reference and generated r
 
 - `SKILL.md`: core workflow and output rules;
 - `references/prompt-patterns.md`: conditional shot and composition patterns;
+- `references/pose-system.md`: conditional pose decisions, scene compatibility, and shot-set deduplication;
 - `references/diagnosis.md`: result, reasoning-trace, and controlled-comparison diagnosis;
 - `agents/openai.yaml` and `assets/`: UI metadata and icons.
 

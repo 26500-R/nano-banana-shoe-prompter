@@ -38,6 +38,8 @@ Use a 50–85 mm look and frame around the knee, ankle, and shoe. Keep the hero 
 
 Select only shot families supported by the reference and requested use. A set may combine standing, seated or supported, walking or transitional, high- or low-viewpoint, and product-detail images; do not impose a fixed quota.
 
+Use [pose-system.md](pose-system.md) for body-pose selection and diversity. This section varies shot families and camera treatment rather than duplicating the pose decision system.
+
 Adjacent shots should differ meaningfully in several of these dimensions:
 
 - pose family;
