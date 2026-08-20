@@ -16,7 +16,9 @@ It does not need high image quality, realistic texture, identity, color, or prod
 
 ## 2. Assign the two semantic roles once
 
-Honor the user's labels and state these roles once inside every standalone prompt; do not rely on upload order.
+Honor the user's labels and state these roles once inside every standalone prompt; do not rely on upload order. Use one domain-level role sentence rather than expanding either role into a list. With user-adopted labels `图1` and `图2`, prefer this exact shape:
+
+`图1是完整黑白构图线稿，只控制目标空间构图；图2是彩色原始参考图，控制所有真实内容与摄影观感；在图1的布局中重建图2。`
 
 - The **complete black-and-white line drawing** controls target ratio when the user has not specified another, frame, crop, observable camera and perspective cues, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout it actually depicts.
 - The **color original** is the authoritative source for every actual person, footwear product, garment, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
@@ -40,14 +42,18 @@ If a major drawn object has no supported counterpart in the color original and t
 
 ## 4. Build a non-redundant, sufficient prompt
 
-Open every complete-line-art prompt with one winning-priority sentence that requires precise reproduction of the spatial relationships actually shown by the drawing and rejects creative spatial drift. State that priority once; do not repeat it with synonymous intensifiers later.
+Open every complete-line-art prompt with one winning-priority sentence. With user-adopted label `图1`, prefer this exact shape and fill only the requested format and output type:
 
-In every standalone prompt, assign the two roles once at the domain level, request reconstruction of the color scene under the drawing's target spatial arrangement, add only relationships that remain genuinely ambiguous or critical to shoe readability, and require a new photorealistic advertising image with plausible anatomy, support, contact, and complete shoe contours without line-art leakage. Do not inventory visible content from the color original or convert the complete drawing into prose merely to demonstrate that the references were inspected.
+`严格遵循图1提供的完整黑白构图线稿来精确确定空间构图和物体位置，不作自由变化或创造性偏移，生成一张[画幅与成片类型]。`
+
+Do not insert a list of camera, crop, pose, support, occlusion, shoe, or scene relationships into this sentence; the drawing already expresses them.
+
+The default prompt shape is the priority sentence above plus the single short role sentence from section 2. If the opening already names the output type, do not add another generic output or quality sentence. Add further text only when you can name a concrete unresolved decision, the user explicitly requests the constraint, or a diagnosed result has failed on that point; never use an extra sentence to restate either reference role or the opening priority. Treat anatomy, support, contact, shoe contours, line-art leakage, old color-original coordinates, and nonphysical overlays as silent reasoning and final checks. Do not inventory visible content from the color original or convert the complete drawing into prose merely to demonstrate that the references were inspected.
 
 This is a role-and-decision structure, not a compression pattern or length target. Include every decision-changing constraint required by an ambiguous or incomplete drawing, complex support or occlusion, multiple references or products, or exact text and layout requirements. Remove repeated meaning, but never delete a needed spatial or product constraint merely to reduce length.
 
-Do not narrate every joint, background edge, garment, accessory, scene object, material, or shoe component already clear in the designated references. Do not restate camera, pose, or layout evidence that the complete drawing already resolves. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
+Do not narrate joints, background edges, garments, accessories, scene objects, materials, shoe components, camera, pose, or layout evidence already clear in the designated references. A broad category list is still an inventory even when each item appears only once. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
 
-Apply the global model-density rules. In this workflow, extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction. Before returning, confirm that the prompt does not preserve the color original's old coordinates or inherit black lines, sketch shading, paper texture, or illustration treatment from the drawing.
+Apply the global model-density rules. In this workflow, extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction. The fact that footwear is the hero product does not by itself justify restating generic shoe-contour, anatomy, support, contact, or shadow requirements. Before returning, confirm silently that the prompt does not preserve the color original's old coordinates or inherit black lines, sketch shading, paper texture, or illustration treatment from the drawing.
 
 Treat improved adherence observed with complete line drawings as tested workflow experience, not official Google guidance and not a guarantee for every image or model version.

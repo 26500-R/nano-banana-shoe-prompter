@@ -33,13 +33,13 @@ If a reference-dependent request has no accessible image, ask the user to attach
 
 Every attempt must use the user-designated original reference assets. Treat AI-generated final advertising images only as diagnostic evidence and never recommend them as source images for another generation, including minor corrections; repeated editing can accumulate quality loss, lost detail, and color drift.
 
-Every delivered prompt must be complete, standalone, and usable with all designated original assets without relying on a previous prompt or result. Honor the user's image labels and semantic roles; do not silently reassign them by upload order. Treat interface-generated ordinals such as `Image #1` as labels only if the user adopts them. When the user supplies labels, pair each label with its semantic role once, then use that label consistently.
+Every delivered prompt must be complete, standalone, and usable with all designated original assets without relying on a previous prompt or result. `Standalone` means directly usable together with those assets; it does not mean the prompt must reproduce their visible content in words or work without them. Honor the user's image labels and semantic roles; do not silently reassign them by upload order. Treat interface-generated ordinals such as `Image #1` as labels only if the user adopts them. When the user supplies labels, pair each label with its semantic role once, then use that label consistently.
 
-Unless the user requests a change, preserve the same recognizable person, exact footwear product, outfit and styling, scene identity, lighting character, color treatment, and photographic character. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
+Unless the user requests a change, preserve all real content and photographic appearance from the designated color original as a whole. In the complete-line-art route, express that preservation through the route's short role anchor rather than restating separate content domains. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
 
-Anchor preserved content to the references instead of transcribing them as checklists. Name a visible detail only when it resolves a real ambiguity, identifies the hero product, or changes a rendering decision. Do not quote attachment filenames unless multiple references of the same type would otherwise be ambiguous. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production in a generation prompt.
+Anchor preserved content to the references instead of transcribing it as a checklist. Name a visible detail only when it resolves a real ambiguity or changes a rendering decision. When several candidate products are present, identify which one is the hero product without enumerating its visible parts merely to prove recognition. Do not quote attachment filenames unless multiple references of the same type would otherwise be ambiguous. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production in a generation prompt.
 
-Treat overlaid captions, page graphics, and watermarks as layout rather than physical scene content. Preserve genuine product branding and physical signage when visible.
+Treat overlaid captions, page graphics, and watermarks as layout rather than physical scene content. Include a nonphysical overlay only when the user requests it or a designated composition reference intentionally contains it; otherwise ignore it silently instead of adding a prohibition list. Preserve genuine product branding and physical signage when visible.
 
 ## Design the shot
 
@@ -61,7 +61,7 @@ Do not stack incompatible demands merely for novelty. When requirements compete,
 
 ## Resolve aspect ratio
 
-Follow the user's requested ratio and orientation. Otherwise, preserve the designated composition reference's ratio and orientation; in single-reference work preserve the original's. Choose a new ratio by intended use only when neither is available.
+Follow the user's requested ratio and orientation. Otherwise, preserve the designated composition reference's ratio and orientation; in single-reference work preserve the original's. When image dimensions are accessible, derive the ratio from their pixel dimensions and map small crop deviations to the nearest intended standard ratio instead of estimating by eye. Choose a new ratio by intended use only when neither is available.
 
 ## Construct the prompt
 
@@ -91,7 +91,7 @@ Reasoning level is an execution setting, not a reason to lengthen the prompt. Wh
 
 ### Nano Banana Pro
 
-Target Gemini 3 Pro Image. Start from the same complete, non-redundant core, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not add detail merely to distinguish Pro from Nano Banana 2 or enumerate content already defined clearly by the references. Add only decisions that materially change interpretation or rendering.
+Target Gemini 3 Pro Image. Start from the same complete, non-redundant core, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not add detail merely to distinguish Pro from Nano Banana 2 or enumerate content already defined clearly by the references. When the references leave no material decision unresolved, the Pro prompt may retain the same concise core without forced expansion.
 
 ## Second-pass prompt check
 
