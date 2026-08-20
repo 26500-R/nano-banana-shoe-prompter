@@ -16,9 +16,9 @@ It does not need high image quality, realistic texture, identity, color, or prod
 
 ## 2. Assign the two semantic roles once
 
-Honor the user's labels and state these roles once inside every standalone prompt; do not rely on upload order. Use one domain-level role sentence rather than expanding either role into a list. With user-adopted labels `图1` and `图2`, prefer this exact shape:
+Honor the user's labels and state these roles once inside every standalone prompt; do not rely on upload order. Use one domain-level role paragraph and do not repeat its domains elsewhere. With user-adopted labels `图1` and `图2`, prefer this shape:
 
-`图1是完整黑白构图线稿，只控制目标空间构图；图2是彩色原始参考图，控制所有真实内容与摄影观感；在图1的布局中重建图2。`
+`图1是完整黑白构图线稿，负责最终画面的空间构图、机位、人物位置与尺度、姿势、遮挡、支撑关系、双鞋位置和主要物体布局；图2是彩色原始参考图，负责所有真实人物、鞋履产品、服装配饰、场景内容、材质颜色、光线和摄影质感。`
 
 - The **complete black-and-white line drawing** controls target ratio when the user has not specified another, frame, crop, observable camera and perspective cues, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout it actually depicts.
 - The **color original** is the authoritative source for every actual person, footwear product, garment, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
@@ -49,12 +49,19 @@ Open every complete-line-art prompt with one winning-priority sentence. With use
 
 Do not insert a list of camera, crop, pose, support, occlusion, shoe, or scene relationships into this sentence; the drawing already expresses them.
 
-The default prompt shape is the priority sentence above plus the single short role sentence from section 2. If the opening already names the output type, do not add another generic output or quality sentence. Add further text only when you can name a concrete unresolved decision, the user explicitly requests the constraint, or a diagnosed result has failed on that point; never use an extra sentence to restate either reference role or the opening priority. Treat anatomy, support, contact, shoe contours, line-art leakage, old color-original coordinates, and nonphysical overlays as silent reasoning and final checks. Do not inventory visible content from the color original or convert the complete drawing into prose merely to demonstrate that the references were inspected.
+Use four necessary layers in every complete-line-art prompt:
+
+1. **Spatial priority:** the opening sentence above.
+2. **Reference roles:** the single role paragraph from section 2.
+3. **Reconstruction rather than overlay:** state once that the color original is rebuilt inside the drawing's complete composition without retaining or superimposing its old camera, pose, limb positions, or object coordinates. Recreate only the people, limbs, footwear, and objects actually supported by the color original, in their supported ownership and use relationships, so old and target arrangements are not combined.
+4. **Unified photographic output:** require a newly reconstructed, consistently photorealistic commercial photograph. State that the drawing is an invisible spatial reference only and that none of its outlines, hatching, grayscale fill, paper, or illustration treatment may remain, including partial photo/partial drawing mixtures.
+
+These layers prevent different failure modes and are not removable merely because the prompt could be shorter. State each layer once, without synonyms or a second inventory. Add further text only when a concrete ambiguity, explicit user request, complex support or occlusion, multiple products, exact layout, or diagnosed failure requires another decision. Do not convert the complete drawing or color original into a visual checklist merely to demonstrate that the references were inspected.
 
 This is a role-and-decision structure, not a compression pattern or length target. Include every decision-changing constraint required by an ambiguous or incomplete drawing, complex support or occlusion, multiple references or products, or exact text and layout requirements. Remove repeated meaning, but never delete a needed spatial or product constraint merely to reduce length.
 
-Do not narrate joints, background edges, garments, accessories, scene objects, materials, shoe components, camera, pose, or layout evidence already clear in the designated references. A broad category list is still an inventory even when each item appears only once. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
+Do not narrate joints, background edges, individual garment details, individual accessories, scene-object appearances, material details, shoe components, camera, pose, or layout evidence already clear in the designated references. The domain list in the single reference-role paragraph is sufficient; do not expand it into itemized visual descriptions. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
 
-Apply the global model-density rules. In this workflow, extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction. The fact that footwear is the hero product does not by itself justify restating generic shoe-contour, anatomy, support, contact, or shadow requirements. Before returning, confirm silently that the prompt does not preserve the color original's old coordinates or inherit black lines, sketch shading, paper texture, or illustration treatment from the drawing.
+Apply the global model-density rules. Both model versions retain all four layers. Extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction; the fact that footwear is the hero product does not by itself justify restating generic shoe-contour, anatomy, support, contact, or shadow requirements.
 
 Treat improved adherence observed with complete line drawings as tested workflow experience, not official Google guidance and not a guarantee for every image or model version.

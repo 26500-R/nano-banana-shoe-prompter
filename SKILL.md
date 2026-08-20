@@ -12,7 +12,7 @@ Write prompts; do not generate images unless the user separately asks for image 
 Inspect the references first and route by their semantic roles, not attachment count:
 
 - **Content-reference route:** use when the user supplies one or more color photographs but no complete composition drawing. Design the camera, pose, composition, and product presentation explicitly because no separate asset already fixes them.
-- **Complete-line-art route:** use only when the user supplies both a complete black-and-white composition drawing and a color original. Read [references/pose-reference.md](references/pose-reference.md); its spatial-prompt rules replace, rather than supplement, the generic instructions to describe camera, pose, and composition below. Do not transcribe spatial relationships already clear in the drawing.
+- **Complete-line-art route:** use only when the user supplies both a complete black-and-white composition drawing and a color original. Read [references/pose-reference.md](references/pose-reference.md); its four-layer prompt structure replaces, rather than supplements, the generic instructions to describe camera, pose, and composition below. Do not transcribe spatial relationships already clear in the drawing.
 - **Incomplete-sketch route:** a skeleton, body-only sketch, or drawing without the target frame and support layout does not trigger the complete-line-art route. Use it only as partial guidance, disclose what it cannot control, and describe the missing decisions explicitly.
 
 Then choose the deliverable:
@@ -35,7 +35,7 @@ Every attempt must use the user-designated original reference assets. Treat AI-g
 
 Every delivered prompt must be complete, standalone, and usable with all designated original assets without relying on a previous prompt or result. `Standalone` means directly usable together with those assets; it does not mean the prompt must reproduce their visible content in words or work without them. Honor the user's image labels and semantic roles; do not silently reassign them by upload order. Treat interface-generated ordinals such as `Image #1` as labels only if the user adopts them. When the user supplies labels, pair each label with its semantic role once, then use that label consistently.
 
-Unless the user requests a change, preserve all real content and photographic appearance from the designated color original as a whole. In the complete-line-art route, express that preservation through the route's short role anchor rather than restating separate content domains. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
+Unless the user requests a change, preserve all real content and photographic appearance from the designated color original as a whole. In the complete-line-art route, express that preservation once through the route's reference-role layer rather than repeatedly restating content details. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
 
 Anchor preserved content to the references instead of transcribing it as a checklist. Name a visible detail only when it resolves a real ambiguity or changes a rendering decision. When several candidate products are present, identify which one is the hero product without enumerating its visible parts merely to prove recognition. Do not quote attachment filenames unless multiple references of the same type would otherwise be ambiguous. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production in a generation prompt.
 
@@ -65,7 +65,7 @@ Follow the user's requested ratio and orientation. In the complete-line-art rout
 
 ## Construct the prompt
 
-The component checks in this section apply directly to the content-reference and incomplete-sketch routes. In the complete-line-art route, the role assignment and drawing replace any component already visible in the drawing; do not add pose or camera prose merely to satisfy this list.
+The component checks in this section apply directly to the content-reference and incomplete-sketch routes. In the complete-line-art route, use the four required layers in [references/pose-reference.md](references/pose-reference.md); the drawing replaces pose or camera prose already visible in it, while reconstruction and anti-line-art constraints remain explicit.
 
 Write in the user's language; default to clear natural Chinese when their preference is unclear. Include the semantic components the shot needs:
 
