@@ -1,6 +1,6 @@
 # Result Diagnosis
 
-Use this when the user supplies a generated result, visible reasoning, thought images, or a controlled prompt/model comparison. The original reference remains the only source image for every retry.
+Use this when the user supplies a generated result, visible reasoning, thought images, or a controlled prompt/model comparison. Every retry returns to the same user-designated original reference assets. In a line-art-guided shot, those assets are the color original and the same complete black-and-white line drawing; the generated final image remains diagnosis-only.
 
 ## Diagnose by impact
 
@@ -54,6 +54,8 @@ When detailed and concise prompts produce comparable fidelity, prefer the concis
 | Distortion is excessive | Wide lens, close distance, and proportion accuracy competed | Move the camera back or use milder lens character |
 | Scene drifted | The prompt redescribed or embellished the environment | Anchor the scene and remove invented décor, materials, or lighting |
 | Pose ignored | Too many objectives competed | Keep one hero objective and shorten the pose geometry |
+| Complete line drawing ignored | The prompt treated it as pose-only or also froze the color original's old composition | Assign the line drawing full spatial authority and reconstruct the color scene within it |
+| Output looks illustrated | Line-art style leaked into the rendering objective | State that the line drawing is only a spatial template and request a new photorealistic image |
 | Unwanted text remains | Overlay removal was ambiguous | Request a pure photographic frame and continuous replacement texture |
 
 ## Output
@@ -62,6 +64,6 @@ Use three compact parts:
 
 1. **达成之处** — only elements worth retaining.
 2. **主要偏差** — prioritized visible failures and likely instruction causes.
-3. **重新生成提示词** — by default, one fresh Nano Banana 2 prompt and one fresh Nano Banana Pro prompt, both complete and submitted with the original reference; return one only when the user requests a single model.
+3. **重新生成提示词** — by default, one fresh Nano Banana 2 prompt and one fresh Nano Banana Pro prompt, both complete and submitted with the same original reference assets; return one only when the user requests a single model.
 
 Never recommend another edit pass on an AI-generated result.

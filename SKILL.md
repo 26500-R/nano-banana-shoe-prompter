@@ -1,6 +1,6 @@
 ---
 name: nano-banana-shoe-prompter
-description: Analyze footwear-model reference images, optionally transfer a separately supplied pose reference, and write copy-ready, single-pass prompts for Nano Banana / Gemini image generation. Use for a new shoe-fashion shot, a coordinated multi-shot set, pose transfer, or diagnosis of a generated result. Preserve the referenced person, footwear product, outfit, and shoot continuity; every retry starts from the original reference rather than an AI-generated result.
+description: Analyze footwear-model references and write copy-ready, single-pass prompts for Nano Banana / Gemini image generation, including shots guided by a complete black-and-white composition line drawing plus a color original. Use for a new shoe-fashion shot, a coordinated multi-shot set, line-art-guided recomposition, or diagnosis. Preserve the referenced person, footwear product, outfit, and shoot continuity; never retry from an AI-generated final image.
 ---
 
 # Nano Banana Shoe Prompter
@@ -11,7 +11,7 @@ Write prompts; do not generate images unless the user separately asks for image 
 
 - **Single shot:** design one composition with one dominant visual objective.
 - **Shot set:** design meaningfully different but visually coherent compositions.
-- **Pose transfer:** keep the original image as the content source and apply only the requested geometry from a separate pose reference.
+- **Line-art-guided recomposition:** use a color original as the content-and-appearance source and a complete black-and-white line drawing as the target spatial composition.
 - **Result diagnosis:** compare the result with the original reference and intended objective, then correct the instruction rather than the failed pixels.
 
 Treat a **shot, pose, or concept** as one composition and a **prompt** as one copy-ready text block. By default, each shot receives a Nano Banana 2 prompt and a Nano Banana Pro prompt. If the user specifies a total number of prompts rather than shots, respect that literal total; ask one concise question only when the requested model allocation is genuinely unclear.
@@ -20,18 +20,18 @@ If a reference-dependent request has no accessible image, ask the user to attach
 
 - Read [references/prompt-patterns.md](references/prompt-patterns.md) only when concrete camera, crop, or shot-family guidance is needed.
 - Read [references/pose-system.md](references/pose-system.md) when the user requests pose exploration, multiple poses, or body-structure diversity in a shot set.
-- Read [references/pose-reference.md](references/pose-reference.md) when the user supplies a separate pose image to apply to the person in the original reference.
+- Read [references/pose-reference.md](references/pose-reference.md) when the user supplies a complete black-and-white line drawing together with a color original.
 - Read [references/diagnosis.md](references/diagnosis.md) when evaluating a generated result, visible reasoning, thought images, prompt-length tests, or reasoning settings.
 
 ## Generation invariants
 
-Every attempt must use the original reference image. Treat AI-generated images only as diagnostic evidence and never recommend them as source images for another generation, including minor corrections; repeated editing can accumulate quality loss, lost detail, and color drift.
+Every attempt must use the user-designated color original. When the shot is guided by a complete line drawing, every attempt must also use that same line drawing. Treat AI-generated final advertising images only as diagnostic evidence and never recommend them as source images for another generation, including minor corrections; repeated editing can accumulate quality loss, lost detail, and color drift. A user-supplied black-and-white line drawing may be used as a secondary spatial-control asset even when it was created by a separate pose-transfer workflow; it is never a source of identity, product, texture, or final-image pixels.
 
-Every delivered prompt must be complete, standalone, and usable with the original reference without relying on a previous prompt or result.
+Every delivered prompt must be complete, standalone, and usable with all designated original reference assets without relying on a previous prompt or result.
 
-When the user supplies a separate pose reference, honor the roles they assign to every image and restate those roles inside each standalone prompt. The original reference remains the sole source for identity, footwear, outfit, scene, lighting, color, and photographic character; the pose reference supplies only the requested body geometry unless the user explicitly assigns it another role. Do not infer image roles from upload order when the user has identified them.
+When the user supplies a color original and a complete black-and-white line drawing, honor their labels and restate both semantic roles inside every standalone prompt. The line drawing controls the target frame, crop, camera evidence, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout of major drawn scene elements. The color original remains the sole source for identity, body appearance, face, hair, exact footwear, outfit, accessories, scene identity, materials, color, lighting, and photographic character. Do not infer image roles from upload order when the user has identified them.
 
-Unless the user requests a change, preserve the same recognizable person, exact footwear product, outfit and styling, scene, lighting direction, color treatment, and photographic character. Infer only what the reference supports; do not invent hidden product construction, logos, accessories, furniture, or scene features.
+Unless the user requests a change, preserve the same recognizable person, exact footwear product, outfit and styling, scene identity, lighting character, color treatment, and photographic character. In line-art-guided recomposition, rebuild the color original's scene content within the line drawing's spatial arrangement; do not also demand the color original's old camera, object coordinates, crop, or background perspective. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
 
 Anchor preserved content to the reference instead of re-enumerating it. Never mention future face swapping, shoe replacement, inpainting, local repair, or downstream post-production in a generation prompt.
 
@@ -41,12 +41,14 @@ Treat overlaid captions, page graphics, and watermarks as layout rather than phy
 
 Give each shot one hero objective. Resolve pose, camera, composition, and product presentation in service of that objective.
 
+When a complete line drawing is present, treat its composition as the already-selected shot design. Do not independently redesign the pose, camera, crop, subject scale, support geometry, or major object placement. Describe only the few visible relationships that are genuinely ambiguous or essential to shoe readability.
+
 - Match lens character to the shot instead of defaulting to wide angle.
 - Describe observable camera evidence: direction, height, distance, tilt, crop, and foreground-to-background relationships.
 - Describe pose geometry: body direction, balance or weight support, hand placement, leg paths, and where each foot lands.
 - Use frame-relative terms such as `画面左侧` and `画面右侧` when anatomical left/right could be ambiguous. Give each leg and shoe one stable role.
 - Prefer positive spatial instructions over prohibition lists.
-- Derive collision and occlusion relationships only from structures visible in the current reference. When exact overlap is unnecessary, prefer clearly separated, photographically plausible silhouettes; never import scene-specific geometry from another example.
+- Derive collision and occlusion relationships only from structures visible in the designated references. When exact overlap is unnecessary, prefer clearly separated, photographically plausible silhouettes; never import scene-specific geometry from an unrelated example.
 - Keep both shoes separately readable when both matter, and protect the complete contour of a close foreground hero shoe.
 - Require credible anatomy, scale, foot contact, and contact shadows.
 - Do not invent handheld props. Hands may use natural empty-hand gestures or interact plausibly with supports already visible in the reference.
@@ -55,7 +57,7 @@ Do not stack incompatible demands merely for novelty. When requirements compete,
 
 ## Resolve aspect ratio
 
-Follow the user's requested ratio and orientation. Otherwise preserve the reference ratio and orientation. Choose a new ratio by intended use only when neither is available.
+Follow the user's requested ratio and orientation. Otherwise, in line-art-guided recomposition preserve the complete line drawing's ratio and orientation; in single-reference work preserve the color original's. Choose a new ratio by intended use only when neither is available.
 
 ## Construct the prompt
 
@@ -69,9 +71,9 @@ Write in the user's language; default to concise natural Chinese when their pref
 
 These are content checks, not mandatory headings or a requirement to produce six separate paragraphs. A concise anchor can be adapted from:
 
-> 基于原始参考图创建同一拍摄系列中的一张新照片；除下文明确要求的变化外，保持人物身份、鞋款、造型、场景、光线、色调与摄影质感一致。
+> 基于彩色原始参考图创建同一拍摄系列中的一张新照片；除下文明确要求的变化外，保持人物身份、鞋款、造型、场景身份、光线、色调与摄影质感一致。
 
-When a separate pose reference is present, the concise anchor must also identify which image is the original content reference and which image supplies pose geometry. Do not send a role sentence, correction fragment, or replacement paragraph by itself; it must be incorporated into the complete prompt.
+When a complete line drawing is present, the anchor must identify which image is the color content reference and which is the black-and-white spatial composition reference. State that the same color scene is reconstructed under the line drawing's target camera and layout, not frozen in its old coordinates. The final must be a photorealistic advertising image rather than a colored drawing. Do not send a role sentence, correction fragment, or replacement paragraph by itself; incorporate it into the complete prompt.
 
 State ranked priorities only when the model must resolve genuine competition.
 
@@ -96,9 +98,12 @@ Before returning prompts, silently reread and revise them once. Confirm that:
 - the requested number of shots and prompt blocks is correct;
 - each shot has one dominant objective and no repeated constraints;
 - every supplied image has the correct explicit role in every complete prompt;
+- a complete line drawing controls spatial composition while the color original controls content and appearance;
+- the prompt does not simultaneously preserve the color original's old camera or background coordinates;
+- any added geometry description resolves a visible ambiguity rather than redundantly narrating the entire line drawing;
 - pose instructions use visible geometry and keep shoe roles stable;
-- ambiguous pose references are resolved with a few frame-relative joint or endpoint relationships rather than a broad action label;
 - pose, scene structures, camera, crop, anatomy, and product requirements do not conflict;
+- the final rendering is explicitly photographic, with no line-art style leakage;
 - Nano Banana 2 contains only decisive instructions;
 - Nano Banana Pro adds only detail that changes a model decision.
 

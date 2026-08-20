@@ -4,14 +4,15 @@
 
 ## 中文
 
-`nano-banana-shoe-prompter` 是一个面向 Codex 的个人技能，用于分析鞋类模特参考图，并为 Nano Banana 2 与 Nano Banana Pro 编写可直接复制的单次成图提示词。
+`nano-banana-shoe-prompter` 是一个面向 Codex 的个人技能，用于分析鞋类模特参考图，并为 Nano Banana 2 与 Nano Banana Pro 编写可直接复制的单次成图提示词；它也支持使用“彩色原始参考图＋完整黑白构图线稿”重新构建镜头。
 
 ### 核心规则
 
 - 锁定参考图中的人物身份、鞋款、服装、场景和摄影系统；
 - 每次重新生成都使用原始参考图，生成图只用于诊断；
 - 每条提示词完整独立，不依赖上一条提示词或生成结果；
-- 用户另附姿势参考图时，原始图仍是人物、鞋款、服装、场景与摄影系统的唯一内容来源；姿势图只提供指定的人体几何，并在每条完整提示词中明确图片角色；
+- 用户同时提供完整黑白构图线稿和彩色原始图时，线稿控制目标画幅、机位、构图、人物位置与尺度、姿势、遮挡、支撑、双鞋位置和主要场景布局；彩色原始图控制人物身份、服装、准确鞋款、场景身份、材质、颜色、光线与摄影质感；
+- 完整线稿模式会按线稿空间重新构建彩色原图中的同一场景，不同时冻结彩色原图原有的相机、裁切、背景透视或物体坐标；
 - 每个镜头只设置一个主要视觉目标，并按目标选择姿势、机位和镜头特征；
 - 多镜头通过支撑状态、躯干方向、腿部动作和鞋履展示目标产生实质差异，不以左右镜像或单纯改变机位充数；
 - 默认输出同一镜头的 Nano Banana 2 与 Nano Banana Pro 两个版本；
@@ -62,10 +63,10 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 使用 $nano-banana-shoe-prompter 比较原始参考图和生成结果，说明达成之处与主要偏差，并分别给出 Nano Banana 2 与 Nano Banana Pro 的全新完整提示词；仍使用原始参考图重新生成。
 ```
 
-原始图加姿势参考图：
+彩色原始图加完整黑白构图线稿：
 
 ```text
-使用 $nano-banana-shoe-prompter，以图1作为唯一原始内容参考，图2只作为姿势参考，生成完整独立的 Nano Banana 2 与 Nano Banana Pro 提示词。
+使用 $nano-banana-shoe-prompter，以彩色原始图作为人物、服装、鞋款、场景外观和摄影质感参考，以完整黑白线稿作为目标机位、构图、人物姿势、支撑关系和主要场景布局参考，生成完整独立的 Nano Banana 2 与 Nano Banana Pro 提示词。
 ```
 
 ### 文件
@@ -73,7 +74,7 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 - `SKILL.md`：核心工作流与输出规则；
 - `references/prompt-patterns.md`：按需读取的镜头与构图模式；
 - `references/pose-system.md`：按需读取的姿势决策、场景兼容与多镜头去重规则；
-- `references/pose-reference.md`：按需读取的双参考图角色、姿势歧义解析与几何转写规则；
+- `references/pose-reference.md`：按需读取的彩色原图与完整黑白构图线稿双参考工作流；
 - `references/diagnosis.md`：按需读取的结果、思考过程和对照测试诊断规则；
 - `agents/openai.yaml` 与 `assets/`：技能展示信息和图标。
 
@@ -83,14 +84,15 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 
 ## English
 
-`nano-banana-shoe-prompter` is a personal Codex skill that analyzes footwear-model references and writes copy-ready, single-pass prompts for Nano Banana 2 and Nano Banana Pro.
+`nano-banana-shoe-prompter` is a personal Codex skill that analyzes footwear-model references and writes copy-ready, single-pass prompts for Nano Banana 2 and Nano Banana Pro. It also supports recomposing a shot from a color original plus a complete black-and-white composition line drawing.
 
 ### Core rules
 
 - Preserve the referenced identity, exact footwear, outfit, scene, and photographic system.
 - Start every retry from the original reference; generated images are diagnosis-only.
 - Make every prompt complete and independent of previous prompts or results.
-- When a separate pose reference is supplied, keep the original as the sole content source for identity, footwear, outfit, scene, and photography; use the pose image only for assigned body geometry and state both roles in every complete prompt.
+- When a complete black-and-white composition drawing and a color original are supplied together, let the drawing control the target frame, camera, composition, subject placement and scale, pose, occlusion, support, shoe positions, and major scene layout; let the color original control identity, outfit, exact footwear, scene identity, materials, color, light, and photographic character.
+- Rebuild the same color scene inside the drawing's spatial arrangement instead of also freezing the color original's old camera, crop, background perspective, or object coordinates.
 - Give each shot one dominant objective and choose pose, camera, and lens character accordingly.
 - Create meaningful shot-set variation through support state, torso direction, leg action, and footwear presentation; mirroring sides or changing only the camera does not count.
 - Return aligned Nano Banana 2 and Nano Banana Pro versions by default.
@@ -141,10 +143,10 @@ Diagnosis:
 Use $nano-banana-shoe-prompter to compare the original reference and generated result, report what worked and the main drift, then return fresh complete Nano Banana 2 and Nano Banana Pro prompts to use with the original reference.
 ```
 
-Original plus pose reference:
+Color original plus complete black-and-white composition drawing:
 
 ```text
-Use $nano-banana-shoe-prompter with image 1 as the sole original content reference and image 2 only as the pose reference. Return complete standalone Nano Banana 2 and Nano Banana Pro prompts.
+Use $nano-banana-shoe-prompter with the color original as the source for the person, outfit, exact footwear, scene appearance, and photographic character, and the complete black-and-white line drawing as the target camera, composition, pose, support, and major scene-layout reference. Return complete standalone Nano Banana 2 and Nano Banana Pro prompts.
 ```
 
 ### Files
@@ -152,7 +154,7 @@ Use $nano-banana-shoe-prompter with image 1 as the sole original content referen
 - `SKILL.md`: core workflow and output rules;
 - `references/prompt-patterns.md`: conditional shot and composition patterns;
 - `references/pose-system.md`: conditional pose decisions, scene compatibility, and shot-set deduplication;
-- `references/pose-reference.md`: conditional image roles, ambiguous-pose interpretation, and geometric pose transfer;
+- `references/pose-reference.md`: the conditional dual-reference workflow for a color original and a complete black-and-white composition drawing;
 - `references/diagnosis.md`: result, reasoning-trace, and controlled-comparison diagnosis;
 - `agents/openai.yaml` and `assets/`: UI metadata and icons.
 
