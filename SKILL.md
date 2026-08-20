@@ -9,18 +9,24 @@ Write prompts; do not generate images unless the user separately asks for image 
 
 ## Route the request
 
+Inspect the references first and route by their semantic roles, not attachment count:
+
+- **Content-reference route:** use when the user supplies one or more color photographs but no complete composition drawing. Design the camera, pose, composition, and product presentation explicitly because no separate asset already fixes them.
+- **Complete-line-art route:** use only when the user supplies both a complete black-and-white composition drawing and a color original. Read [references/pose-reference.md](references/pose-reference.md); its spatial-prompt rules replace, rather than supplement, the generic instructions to describe camera, pose, and composition below. Do not transcribe spatial relationships already clear in the drawing.
+- **Incomplete-sketch route:** a skeleton, body-only sketch, or drawing without the target frame and support layout does not trigger the complete-line-art route. Use it only as partial guidance, disclose what it cannot control, and describe the missing decisions explicitly.
+
+Then choose the deliverable:
+
 - **Single shot:** design one composition with one dominant visual objective.
 - **Shot set:** design meaningfully different but visually coherent compositions.
-- **Line-art-guided recomposition:** use a color original as the content-and-appearance source and a complete black-and-white line drawing as the target spatial composition.
-- **Result diagnosis:** compare the result with the original reference and intended objective, then correct the instruction rather than the failed pixels.
+- **Result diagnosis:** compare the result with the designated original assets and intended objective, then correct the instruction rather than the failed pixels.
 
 Treat a **shot, pose, or concept** as one composition and a **prompt** as one copy-ready text block. By default, each shot receives a Nano Banana 2 prompt and a Nano Banana Pro prompt. If the user specifies a total number of prompts rather than shots, respect that literal total; ask one concise question only when the requested model allocation is genuinely unclear.
 
 If a reference-dependent request has no accessible image, ask the user to attach it. Inspect every supplied reference and result image visually before writing.
 
-- Read [references/prompt-patterns.md](references/prompt-patterns.md) only when concrete camera, crop, or shot-family guidance is needed.
-- Read [references/pose-system.md](references/pose-system.md) when the user requests pose exploration, multiple poses, or body-structure diversity in a shot set.
-- Read [references/pose-reference.md](references/pose-reference.md) when the user supplies a complete black-and-white line drawing together with a color original.
+- Read [references/prompt-patterns.md](references/prompt-patterns.md) in the content-reference route only when concrete camera, crop, or shot-family guidance is needed.
+- Read [references/pose-system.md](references/pose-system.md) in the content-reference route when the user requests pose exploration, multiple poses, or body-structure diversity in a shot set.
 - Read [references/diagnosis.md](references/diagnosis.md) when evaluating a generated result, visible reasoning, thought images, prompt-length tests, or reasoning settings.
 
 ## Generation invariants
@@ -36,6 +42,8 @@ Anchor preserved content to the references instead of transcribing them as check
 Treat overlaid captions, page graphics, and watermarks as layout rather than physical scene content. Preserve genuine product branding and physical signage when visible.
 
 ## Design the shot
+
+Use this section to supply spatial decisions in the content-reference and incomplete-sketch routes. In the complete-line-art route, the drawing already supplies those decisions; follow [references/pose-reference.md](references/pose-reference.md) and describe only unresolved ambiguity or a decision critical to shoe readability.
 
 Give each shot one hero objective. Resolve pose, camera, composition, and product presentation in service of that objective.
 
@@ -56,6 +64,8 @@ Do not stack incompatible demands merely for novelty. When requirements compete,
 Follow the user's requested ratio and orientation. Otherwise, preserve the designated composition reference's ratio and orientation; in single-reference work preserve the original's. Choose a new ratio by intended use only when neither is available.
 
 ## Construct the prompt
+
+The component checks in this section apply directly to the content-reference and incomplete-sketch routes. In the complete-line-art route, the role assignment and drawing replace any component already visible in the drawing; do not add pose or camera prose merely to satisfy this list.
 
 Write in the user's language; default to clear natural Chinese when their preference is unclear. Include the semantic components the shot needs:
 
@@ -87,6 +97,7 @@ Target Gemini 3 Pro Image. Start from the same complete, non-redundant core, the
 
 Before returning prompts, silently reread and revise them once. Confirm that:
 
+- the reference route is correct and route-specific rules were not stacked together;
 - the requested number of shots and prompt blocks is correct;
 - every prompt is complete, standalone, and assigns supplied references correctly;
 - each shot has one dominant objective, and its pose, scene, camera, anatomy, and product requirements are compatible;

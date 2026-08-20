@@ -6,6 +6,13 @@
 
 `nano-banana-shoe-prompter` 是一个面向 Codex 的个人技能，用于分析鞋类模特参考图，并为 Nano Banana 2 与 Nano Banana Pro 编写可直接复制的单次成图提示词；它也支持使用“彩色原始参考图＋完整黑白构图线稿”重新构建镜头。
 
+### 参考图路由
+
+- 只有一张或多张彩色参考照片、没有完整构图线稿：由技能主动设计并明确描述机位、姿势、构图和鞋履展示方式。
+- 同时提供完整黑白构图线稿和彩色原始图：进入完整线稿路线；线稿已经明确的机位、姿势和空间布局不再转写成文字，只补充真实歧义和关键鞋履可读性要求。
+- 骨架、人体局部草图或缺少目标画幅与支撑布局的线稿不触发完整线稿路线，只作为局部提示使用。
+- 路由依据参考图的语义角色，而不是图片数量；两张普通照片仍属于彩色参考路线。
+
 ### 核心规则
 
 - 锁定参考图中的人物身份、鞋款、服装、场景和摄影系统；
@@ -86,6 +93,13 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 ## English
 
 `nano-banana-shoe-prompter` is a personal Codex skill that analyzes footwear-model references and writes copy-ready, single-pass prompts for Nano Banana 2 and Nano Banana Pro. It also supports recomposing a shot from a color original plus a complete black-and-white composition line drawing.
+
+### Reference routing
+
+- With one or more color photographs and no complete composition drawing, the skill designs and explicitly describes the camera, pose, composition, and footwear presentation.
+- With both a complete black-and-white composition drawing and a color original, the complete-line-art route applies: camera, pose, and spatial layout already clear in the drawing are not transcribed into prose; only genuine ambiguity and critical footwear-readability decisions are added.
+- A skeleton, body-only sketch, or drawing without the target frame and support layout does not trigger the complete-line-art route and is used only as partial guidance.
+- Routing follows semantic reference roles rather than image count; two ordinary photographs remain in the content-reference route.
 
 ### Core rules
 

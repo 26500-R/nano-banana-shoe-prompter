@@ -40,13 +40,13 @@ If a major drawn object has no supported counterpart in the color original and t
 
 ## 4. Build a non-redundant, sufficient prompt
 
-When the user requires exact line-art adherence, open with one winning-priority sentence that requires precise reproduction of the spatial relationships actually shown by the drawing and rejects creative spatial drift. State that priority once; do not repeat it with synonymous intensifiers later.
+Open every complete-line-art prompt with one winning-priority sentence that requires precise reproduction of the spatial relationships actually shown by the drawing and rejects creative spatial drift. State that priority once; do not repeat it with synonymous intensifiers later.
 
-In every standalone prompt, assign the two roles once, request reconstruction of the color scene under the drawing's target spatial arrangement, add only relationships that remain genuinely ambiguous or critical to shoe readability, and require a new photorealistic advertising image with plausible anatomy, support, contact, and complete shoe contours without line-art leakage.
+In every standalone prompt, assign the two roles once at the domain level, request reconstruction of the color scene under the drawing's target spatial arrangement, add only relationships that remain genuinely ambiguous or critical to shoe readability, and require a new photorealistic advertising image with plausible anatomy, support, contact, and complete shoe contours without line-art leakage. Do not inventory visible content from the color original or convert the complete drawing into prose merely to demonstrate that the references were inspected.
 
 This is a role-and-decision structure, not a compression pattern or length target. Include every decision-changing constraint required by an ambiguous or incomplete drawing, complex support or occlusion, multiple references or products, or exact text and layout requirements. Remove repeated meaning, but never delete a needed spatial or product constraint merely to reduce length.
 
-Do not narrate every joint, background edge, garment, accessory, scene object, material, or shoe component already clear in the designated references. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` when the semantic role assignment already resolves the issue. Use stronger wording only for a genuine winning priority.
+Do not narrate every joint, background edge, garment, accessory, scene object, material, or shoe component already clear in the designated references. Do not restate camera, pose, or layout evidence that the complete drawing already resolves. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
 
 Apply the global model-density rules. In this workflow, extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction. Before returning, confirm that the prompt does not preserve the color original's old coordinates or inherit black lines, sketch shading, paper texture, or illustration treatment from the drawing.
 
