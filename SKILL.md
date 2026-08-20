@@ -61,7 +61,7 @@ Do not stack incompatible demands merely for novelty. When requirements compete,
 
 ## Resolve aspect ratio
 
-Follow the user's requested ratio and orientation. Otherwise, preserve the designated composition reference's ratio and orientation; in single-reference work preserve the original's. When image dimensions are accessible, derive the ratio from their pixel dimensions and map small crop deviations to the nearest intended standard ratio instead of estimating by eye. Choose a new ratio by intended use only when neither is available.
+Follow the user's requested ratio and orientation. In the complete-line-art route, when the user has not specified a numeric ratio, preserve the drawing's original ratio and orientation but refer to them relationally in the prompt, such as `保持图1原始画幅比例和方向`; do not infer or write a numeric ratio. In other routes, preserve the designated composition reference's ratio and orientation, or the original's in single-reference work. Choose a new ratio by intended use only when no controlling reference is available.
 
 ## Construct the prompt
 

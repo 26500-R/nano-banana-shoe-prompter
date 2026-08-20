@@ -42,9 +42,10 @@ If a major drawn object has no supported counterpart in the color original and t
 
 ## 4. Build a non-redundant, sufficient prompt
 
-Open every complete-line-art prompt with one winning-priority sentence. With user-adopted label `图1`, prefer this exact shape and fill only the requested format and output type:
+Open every complete-line-art prompt with one winning-priority sentence. With user-adopted label `图1`, use the user's explicit ratio when supplied; otherwise refer to the drawing's ratio and direction without guessing a numeric value. Prefer these exact shapes and fill only the output type:
 
-`严格遵循图1提供的完整黑白构图线稿来精确确定空间构图和物体位置，不作自由变化或创造性偏移，生成一张[画幅与成片类型]。`
+- Explicit ratio: `严格遵循图1提供的完整黑白构图线稿来精确确定空间构图和物体位置，不作自由变化或创造性偏移，生成一张[用户指定画幅与成片类型]。`
+- No explicit ratio: `严格遵循图1提供的完整黑白构图线稿来精确确定空间构图和物体位置，不作自由变化或创造性偏移，生成一张保持图1原始画幅比例和方向的[成片类型]。`
 
 Do not insert a list of camera, crop, pose, support, occlusion, shoe, or scene relationships into this sentence; the drawing already expresses them.
 

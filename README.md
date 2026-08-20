@@ -13,6 +13,7 @@
 - 骨架、人体局部草图或缺少目标画幅与支撑布局的线稿不触发完整线稿路线，只作为局部提示使用。
 - 路由依据参考图的语义角色，而不是图片数量；两张普通照片仍属于彩色参考路线。
 - 完整线稿路线默认使用“优先级句＋一句角色锚点”；开头已写明成片类型时不再添加通用质量句，也不会为了让提示词脱离参考图仍可理解而复述图中内容。只有具体未决歧义、用户明确要求或已经诊断出的失败才补充细节。
+- 用户未指定数值比例时，完整线稿路线写“保持图1原始画幅比例和方向”，不再猜测具体比例数值。
 
 ### 核心规则
 
@@ -102,6 +103,7 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 - A skeleton, body-only sketch, or drawing without the target frame and support layout does not trigger the complete-line-art route and is used only as partial guidance.
 - Routing follows semantic reference roles rather than image count; two ordinary photographs remain in the content-reference route.
 - The complete-line-art route defaults to a priority sentence plus one short role anchor. When the opening already names the output type, it adds no generic quality sentence and does not restate visible content to make the prompt understandable without its references. Extra detail is added only for a concrete unresolved ambiguity, an explicit request, or a diagnosed failure.
+- When the user does not specify a numeric ratio, the complete-line-art route says to preserve the drawing's original ratio and direction instead of guessing a numeric value.
 
 ### Core rules
 
