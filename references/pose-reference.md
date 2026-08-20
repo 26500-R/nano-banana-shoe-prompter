@@ -54,7 +54,7 @@ Use four necessary layers in every complete-line-art prompt:
 1. **Spatial priority:** the opening sentence above.
 2. **Reference roles:** the single role paragraph from section 2.
 3. **Reconstruction rather than overlay:** state once that the color original is rebuilt inside the drawing's complete composition without retaining or superimposing its old camera, pose, limb positions, or object coordinates. Recreate only the people, limbs, footwear, and objects actually supported by the color original, in their supported ownership and use relationships, so old and target arrangements are not combined.
-4. **Unified photographic output:** require a newly reconstructed, consistently photorealistic commercial photograph. State that the drawing is an invisible spatial reference only and that none of its outlines, hatching, grayscale fill, paper, or illustration treatment may remain, including partial photo/partial drawing mixtures.
+4. **Unified photographic output:** in Chinese prompts, use this fixed sentence exactly: `按图1的构图，以图2的真实摄影质感重建成片，不保留任何线稿或插画效果。` Use a faithful semantic equivalent in another output language. Do not expand it into another list of line-art artifacts.
 
 These layers prevent different failure modes and are not removable merely because the prompt could be shorter. State each layer once, without synonyms or a second inventory. Add further text only when a concrete ambiguity, explicit user request, complex support or occlusion, multiple products, exact layout, or diagnosed failure requires another decision. Do not convert the complete drawing or color original into a visual checklist merely to demonstrate that the references were inspected.
 
