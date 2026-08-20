@@ -1,24 +1,24 @@
 # Prompt Patterns
 
-Use these as conditional decision patterns, not text templates. Apply only patterns supported by the current reference; never import geometry or props from another example.
+Use these as conditional decision patterns, not text templates. Apply only patterns supported by the current reference; never import geometry or props from another example. Treat focal-length ranges as internal starting points and write them into a prompt only when lens behavior materially changes perspective or product presentation; otherwise describe observable camera evidence.
 
 ## Shot patterns
 
 ### Natural catalog full body
 
-Use a 35–50 mm look. Put weight on one leg and move the other foot slightly forward or outward. Keep both shoe contours separate, show enough floor to verify contact, and favor product proportion accuracy over spectacle.
+A 35–50 mm look usually supports this shot. Put weight on one leg and move the other foot slightly forward or outward. Keep both shoe contours separate, show enough floor to verify contact, and favor product proportion accuracy over spectacle.
 
 ### Environmental fashion full body
 
-Use a 28–35 mm look. Place the subject within a usable part of the reference environment. Build depth from existing foreground, subject, and background elements instead of inventing furniture or accessories.
+A 28–35 mm look is a useful starting point when environmental depth matters. Place the subject within a usable part of the reference environment. Build depth from existing foreground, subject, and background elements instead of inventing furniture or accessories.
 
 ### Low-angle shoe hero
 
-Use a deliberate 20–28 mm look. Put one complete shoe in the lower foreground and the other in the midground. State how the body recedes through the frame. A seated, half-seated, stepping, crouched, or extended-leg pose generally handles this perspective better than rigid standing.
+A deliberate 20–28 mm look can support strong foreground emphasis. Put one complete shoe in the lower foreground and the other in the midground. State how the body recedes through the frame. A seated, half-seated, stepping, crouched, or extended-leg pose generally handles this perspective better than rigid standing.
 
 ### High-angle full body
 
-Describe visible evidence rather than only naming the angle: camera above the head, visible top of head and shoulders, visible shoe uppers, compressed body depth, and substantial floor around the subject. Use 28–35 mm for a natural result or 20–28 mm for intentional exaggeration.
+Describe visible evidence rather than only naming the angle: camera above the head, visible top of head and shoulders, visible shoe uppers, compressed body depth, and substantial floor around the subject. A 28–35 mm look tends toward a natural result, while 20–28 mm can add intentional exaggeration.
 
 ### Seated shoe presentation
 
@@ -28,11 +28,11 @@ Only when the current reference contains an armchair with two visible front post
 
 ### Walking frame
 
-Specify the leading foot, trailing foot, weight transfer, stride direction, and camera direction. Ask for a crisp captured moment with credible ground contact. Use 28–35 mm for environmental movement or 35–50 mm for cleaner catalog motion.
+Specify the leading foot, trailing foot, weight transfer, stride direction, and camera direction. Ask for a crisp captured moment with credible ground contact. A 28–35 mm look can emphasize environmental movement; 35–50 mm can produce cleaner catalog motion.
 
 ### Product detail
 
-Use a 50–85 mm look and frame around the knee, ankle, and shoe. Keep the hero shoe complete and show only product surfaces supported by the reference. Preserve construction and branding; do not infer hidden features.
+A 50–85 mm look usually supports this crop. Frame around the knee, ankle, and shoe. Keep the hero shoe complete and show only product surfaces supported by the reference. Preserve construction and branding; do not infer hidden features.
 
 ## Design a shot set
 

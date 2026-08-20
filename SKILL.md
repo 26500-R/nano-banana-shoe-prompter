@@ -27,7 +27,7 @@ If a reference-dependent request has no accessible image, ask the user to attach
 
 Every attempt must use the user-designated original reference assets. Treat AI-generated final advertising images only as diagnostic evidence and never recommend them as source images for another generation, including minor corrections; repeated editing can accumulate quality loss, lost detail, and color drift.
 
-Every delivered prompt must be complete, standalone, and usable with all designated original assets without relying on a previous prompt or result. Honor the user's image labels and semantic roles; do not silently reassign them by upload order.
+Every delivered prompt must be complete, standalone, and usable with all designated original assets without relying on a previous prompt or result. Honor the user's image labels and semantic roles; do not silently reassign them by upload order. Treat interface-generated ordinals such as `Image #1` as labels only if the user adopts them. When the user supplies labels, pair each label with its semantic role once, then use that label consistently.
 
 Unless the user requests a change, preserve the same recognizable person, exact footwear product, outfit and styling, scene identity, lighting character, color treatment, and photographic character. Infer only what the references support; do not invent hidden product construction, logos, accessories, furniture, or scene features.
 
@@ -57,33 +57,31 @@ Follow the user's requested ratio and orientation. Otherwise, preserve the desig
 
 ## Construct the prompt
 
-Write in the user's language; default to concise natural Chinese when their preference is unclear. Include only the semantic components the shot needs:
+Write in the user's language; default to clear natural Chinese when their preference is unclear. Include the semantic components the shot needs:
 
-- a concise reference anchor;
+- a reference anchor;
 - the hero objective;
 - visible pose geometry;
 - camera and composition evidence;
 - decisive acceptance criteria.
 
-These are content checks, not mandatory headings or a required paragraph count. A concise anchor can be adapted from:
-
-> 基于彩色原始参考图创建同一拍摄系列中的一张新照片；除下文明确要求的变化外，保持人物身份、鞋款、造型、场景身份、光线、色调与摄影质感一致。
+These are content checks, not mandatory headings or a required paragraph count. Use one reference anchor to identify the designated original assets and state that unrequested content remains consistent. Enumerate preserved domains only when their roles would otherwise be ambiguous.
 
 State ranked priorities only when the model must resolve genuine competition.
 
 ## Adapt for the target model
 
-Keep both versions aligned to the same creative objective and required composition; adapt instruction density rather than inventing different concepts. Prompt length follows the number of decisions the model must make, not a fixed character limit. Never remove a decision-changing constraint merely to hit a target length.
+Keep both versions aligned to the same creative objective and required composition; adapt instruction density rather than inventing different concepts. Prompt length is a consequence of the decisions that must be expressed, not a target or a quality measure. Remove repeated or non-decision-changing text, but never remove a needed constraint merely to make the prompt shorter.
 
 ### Nano Banana 2
 
-Target Gemini 3.1 Flash Image. Be specific, direct, and compact. State each constraint once, replace abstract spatial language with visible evidence, and retain only details that change the rendered decision. An ordinary prompt should be one compact block; expand only when a real ambiguity, complex support or occlusion, multiple products or references, or exact layout requirement cannot be resolved more briefly.
+Target Gemini 3.1 Flash Image. Be specific, direct, and compact: state each constraint once, replace abstract spatial language with visible evidence, and remove only repetition or detail that does not change the rendered decision. Here `compact` means non-redundant, not short; use as many sentences or paragraphs as the actual ambiguity, support, occlusion, products, references, or layout decisions require.
 
 Reasoning level is an execution setting, not a reason to lengthen the prompt. When relevant, use only the official levels `minimal` and `high`; `minimal` is the default and still performs some thinking.
 
 ### Nano Banana Pro
 
-Target Gemini 3 Pro Image. Start from the same concise core, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not make the Pro prompt long by default or enumerate details already defined clearly by the references. Add only decisions that materially change interpretation or rendering.
+Target Gemini 3 Pro Image. Start from the same complete, non-redundant core, then add precision only for genuinely ambiguous spatial paths, occlusion, product fidelity, camera behavior, or tradeoff priorities. Do not add detail merely to distinguish Pro from Nano Banana 2 or enumerate content already defined clearly by the references. Add only decisions that materially change interpretation or rendering.
 
 ## Second-pass prompt check
 
@@ -91,14 +89,11 @@ Before returning prompts, silently reread and revise them once. Confirm that:
 
 - the requested number of shots and prompt blocks is correct;
 - every prompt is complete, standalone, and assigns supplied references correctly;
-- each shot has one dominant objective and no repeated or itemized reference content;
-- pose, scene structures, camera, crop, anatomy, and product requirements are compatible;
-- pose instructions use visible geometry and keep shoe roles stable;
-- both shoes remain readable when required, with plausible anatomy, support, contact, and shadows;
-- Nano Banana 2 contains only decisive instructions;
-- Nano Banana Pro adds only detail that changes a model decision.
+- each shot has one dominant objective, and its pose, scene, camera, anatomy, and product requirements are compatible;
+- Nano Banana 2 contains only decisive instructions, while Nano Banana Pro adds only detail that changes a model decision;
+- no sentence restates a reference role, repeats a constraint with synonyms, or inventories content already clear in a designated reference.
 
-Delete any sentence that merely restates a reference role, repeats a constraint with synonyms, or lists details already supplied clearly by a designated reference. Fix every detected issue before output.
+Fix every detected issue before output.
 
 ## Output
 
