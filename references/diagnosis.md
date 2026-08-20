@@ -2,12 +2,14 @@
 
 Use this when the user supplies a generated result, visible reasoning, thought images, or a controlled prompt/model comparison. Apply the generation invariants to every retry; in a line-art-guided shot, diagnose against the color original and the same complete black-and-white line drawing, treating the generated final image only as evidence.
 
+If the user supplies the real photo from which an AI line drawing was derived, use it only to validate spatial adherence unless the user also designates it as a generation content source. Do not count content differences required by the actual color source as failures.
+
 ## Diagnose by impact
 
 Evaluate in this order:
 
 1. **Product fidelity and readability:** shoe design, proportions, materials, branding, complete contours, focus, and commercial usefulness.
-2. **Identity and continuity:** person, hairstyle, body characteristics, outfit, scene, furniture, lighting, and color treatment.
+2. **Identity and continuity:** person, hairstyle, body characteristics, outfit, accessories, props, scene objects, lighting, and color treatment.
 3. **Pose and anatomy:** intended geometry, balance, limb plausibility, hands, foot contact, and contact shadows.
 4. **Camera and composition:** viewpoint evidence, perspective, crop, scale, depth layers, and aspect ratio.
 5. **Image cleanliness:** duplicate objects, warped geometry, unexplained props, embedded text, or broken background continuity.
@@ -54,6 +56,7 @@ When prompts produce comparable fidelity, prefer the version with less repeated 
 | Distortion is excessive | Wide lens, close distance, and proportion accuracy competed | Move the camera back or use milder lens character |
 | Scene drifted | The prompt redescribed or embellished the environment | Anchor the scene and remove invented décor, materials, or lighting |
 | Pose ignored | Too many objectives competed | Keep one hero objective and retain only decision-changing pose geometry |
+| Color-source content was omitted, redesigned, or repurposed | The line drawing was treated as a content inventory | Restore the content and supported use relationship from the color original, then adapt its placement within the target spatial composition |
 | Complete line drawing ignored | The prompt treated it as pose-only or also froze the color original's old composition | Assign the line drawing full spatial authority and reconstruct the color scene within it |
 | Output looks illustrated | Line-art style leaked into the rendering objective | State that the line drawing is only a spatial template and request a new photorealistic image |
 | Unwanted text remains | Overlay removal was ambiguous | Request a pure photographic frame and continuous replacement texture |

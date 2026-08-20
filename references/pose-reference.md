@@ -1,6 +1,6 @@
 # Complete Line-Art Composition Reference
 
-Use this file when the user supplies both a color footwear-model original and a complete black-and-white line drawing intended to control the new shot. This is a whole-composition workflow, not generic pose-only transfer: the line drawing supplies the target two-dimensional spatial template, while the color original supplies the content and photographic appearance rebuilt inside it.
+Use this file when the user supplies both a color footwear-model original and a complete black-and-white line drawing intended to control the new shot. This is a whole-composition workflow, not generic pose-only transfer: the line drawing supplies the target two-dimensional spatial template, while the color original supplies the authoritative content inventory and photographic appearance rebuilt inside it.
 
 ## 1. Confirm that the line drawing is complete enough
 
@@ -12,15 +12,15 @@ A suitable composition line drawing normally shows:
 - support surfaces and contact relationships;
 - the positions or silhouettes of major props and scene structures that affect composition.
 
-It does not need high image quality, realistic texture, identity, color, or product detail. Sparse joint skeletons, isolated anatomy diagrams, and body-only sketches without the target frame or support layout are not equivalent to this workflow. If the drawing is incomplete, disclose the missing spatial control and do not promise exact composition transfer.
+It does not need high image quality, realistic texture, identity, color, or product detail. Because it may be AI-generated, treat its outlines only as spatial evidence; determine what actually exists and how it looks from the color original. Sparse joint skeletons, isolated anatomy diagrams, and body-only sketches without the target frame or support layout are not equivalent to this workflow. If the drawing is incomplete, disclose the missing spatial control and do not promise exact composition transfer.
 
 ## 2. Assign the two semantic roles once
 
 Honor the user's labels and state these roles once inside every standalone prompt; do not rely on upload order.
 
-- The **complete black-and-white line drawing** controls target ratio when the user has not specified another, frame, crop, observable camera and perspective cues, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout of major drawn scene elements.
-- The **color original** is the source for the recognizable person, exact footwear, styling, scene identity and appearance, lighting, color, and photographic character.
-- The line drawing never supplies identity, product or garment design, brand detail, material, color, or illustration style, even when its outlines resemble those things.
+- The **complete black-and-white line drawing** controls target ratio when the user has not specified another, frame, crop, observable camera and perspective cues, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout it actually depicts.
+- The **color original** is the authoritative source for every actual person, footwear product, garment, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
+- The line drawing is not a content inventory: an omission does not remove content supported by the color original, and an extra or inaccurate outline does not authorize new content or override the color original's design.
 
 A line drawing produced by a separate pose-transfer process is an original spatial-control asset for this workflow, not an AI-generated final advertisement or a replacement content source.
 
@@ -34,9 +34,13 @@ When requirements conflict, use this order:
 2. the line drawing for spatial geometry;
 3. the color original for content identity and photographic appearance.
 
-If a major drawn object has no supported counterpart in the color original and the user did not request a new object, the drawing may define only its occupancy or support relationship, not its identity or design. If that identity would materially affect the result, disclose the ambiguity instead of inventing it. Do not silently import unrelated furniture, products, clothing, or props from the workflow that produced the drawing.
+This order separates responsibilities; it does not make an AI-generated line drawing a higher-fidelity content source than the color original.
+
+If a major drawn object has no supported counterpart in the color original and the user did not request a new object, the drawing may define only its occupancy or support relationship, not its identity or design. Conversely, preserve content from the color original even when the drawing omits it, adapting its placement to the target composition while retaining its supported use relationship, such as worn, carried, held, or placed. If an object's identity or placement remains decision-critical and genuinely unresolved, disclose the ambiguity instead of inventing it. Do not silently import unrelated furniture, products, clothing, or props from the workflow that produced the drawing.
 
 ## 4. Build a non-redundant, sufficient prompt
+
+When the user requires exact line-art adherence, open with one winning-priority sentence that requires precise reproduction of the spatial relationships actually shown by the drawing and rejects creative spatial drift. State that priority once; do not repeat it with synonymous intensifiers later.
 
 In every standalone prompt, assign the two roles once, request reconstruction of the color scene under the drawing's target spatial arrangement, add only relationships that remain genuinely ambiguous or critical to shoe readability, and require a new photorealistic advertising image with plausible anatomy, support, contact, and complete shoe contours without line-art leakage.
 

@@ -11,7 +11,8 @@
 - 锁定参考图中的人物身份、鞋款、服装、场景和摄影系统；
 - 每次重新生成都使用原始参考图，生成图只用于诊断；
 - 每条提示词完整独立，不依赖上一条提示词或生成结果；
-- 用户同时提供完整黑白构图线稿和彩色原始图时，线稿控制目标画幅、机位、构图、人物位置与尺度、姿势、遮挡、支撑、双鞋位置和主要场景布局；彩色原始图控制人物身份、服装、准确鞋款、场景身份、材质、颜色、光线与摄影质感；
+- 用户同时提供完整黑白构图线稿和彩色原始图时，线稿只控制目标画幅、机位、构图、人物位置与尺度、姿势、遮挡、支撑、双鞋位置和它实际表达的空间布局；彩色原始图是人物、服装、准确鞋款、配饰、道具、场景物体、设计、材质、颜色、光线与摄影质感的权威来源；
+- AI 线稿不是内容清单：线稿遗漏的彩色原图内容仍需保留，线稿多画或误画的内容不能覆盖彩色原图；需要精确复现线稿空间时，只在提示词开头声明一次强空间优先级；
 - 完整线稿模式会按线稿空间重新构建彩色原图中的同一场景，不同时冻结彩色原图原有的相机、裁切、背景透视或物体坐标；
 - 每个镜头只设置一个主要视觉目标，并按目标选择姿势、机位和镜头特征；
 - 多镜头通过支撑状态、躯干方向、腿部动作和鞋履展示目标产生实质差异，不以左右镜像或单纯改变机位充数；
@@ -91,7 +92,8 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 - Preserve the referenced identity, exact footwear, outfit, scene, and photographic system.
 - Start every retry from the original reference; generated images are diagnosis-only.
 - Make every prompt complete and independent of previous prompts or results.
-- When a complete black-and-white composition drawing and a color original are supplied together, let the drawing control the target frame, camera, composition, subject placement and scale, pose, occlusion, support, shoe positions, and major scene layout; let the color original control identity, outfit, exact footwear, scene identity, materials, color, light, and photographic character.
+- When a complete black-and-white composition drawing and a color original are supplied together, let the drawing control only the target frame, camera, composition, subject placement and scale, pose, occlusion, support, shoe positions, and the spatial layout it actually depicts; treat the color original as authoritative for every person, garment, exact footwear product, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
+- An AI line drawing is not a content inventory: content omitted from it remains supported by the color original, while extra or inaccurate drawn content cannot override the color original. When exact spatial adherence is required, state that winning priority once at the start of the prompt.
 - Rebuild the same color scene inside the drawing's spatial arrangement instead of also freezing the color original's old camera, crop, background perspective, or object coordinates.
 - Give each shot one dominant objective and choose pose, camera, and lens character accordingly.
 - Create meaningful shot-set variation through support state, torso direction, leg action, and footwear presentation; mirroring sides or changing only the camera does not count.
