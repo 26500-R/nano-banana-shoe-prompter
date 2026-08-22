@@ -2,6 +2,16 @@
 
 Use this file when the user requests pose exploration, a multi-shot set, or stronger body-structure diversity. It is a decision system, not a fixed pose catalog and not text to paste verbatim into prompts.
 
+## 0. Present the action menu after route confirmation
+
+Use this menu only after the user explicitly asks for pose exploration or chooses the pose-discovery option in the intent question. Do not assume that an otherwise unexplained image is a color original or that the user wants pose concepts.
+
+Offer exactly 10 numbered action concepts instead of complete prompts. Each concept should be one compact sentence that lets the user roughly visualize the body action, support state, leg arrangement, and footwear presentation. Keep it concise enough to scan; omit reference-role prose, camera specifications, materials, lighting, quality language, negative constraints, and prompt syntax.
+
+Make the 10 concepts meaningfully different and feasible in the visible scene. Do not invent a support or handheld prop that the image does not contain. End by asking the user to reply with one or more numbers; do not expand any concept until they choose.
+
+When the user replies with numbers, expand only the selected concepts into complete standalone Nano Banana 2 prompts using the same original image. Treat the selected concept as a fixed shot brief: retain its defining body action, support state, leg arrangement, and footwear presentation, adding only the camera, composition, reference anchors, and acceptance criteria needed for a complete prompt. Do not replace it with a supposedly better pose. Produce Nano Banana Pro only when explicitly requested. A multi-number reply produces one complete prompt per selected concept.
+
 ## 1. Start from the product and the current reference
 
 Choose the footwear message first: balanced pair visibility, one hero shoe, upper/vamp view, side profile, outsole edge, or flex in motion. Select only poses that the visible scene can support and that keep the required shoe surfaces readable.

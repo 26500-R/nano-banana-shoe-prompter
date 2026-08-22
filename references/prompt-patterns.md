@@ -64,8 +64,8 @@ When a conflict is requested, state the winning priority and simplify the weaker
 
 ## Clean photographic output
 
-Only when the user requests removal of overlaid marketing text or watermarks, describe the replacement pixels positively:
+When the user requests removal of overlaid marketing text or watermarks, or when an unwanted nonphysical overlay is visibly likely to transfer into a new clean photograph, describe the replacement pixels once and positively:
 
 > 输出为纯摄影画面，原文字覆盖区域由连续自然的墙面、地面或背景纹理填充；只保留真实存在于场景中的人物、服装、鞋类产品、家具和环境元素。
 
-Do not remove physical signage or genuine branding printed on the product.
+Do not expand this into a negative list. Do not remove physical signage or genuine branding printed on the product.

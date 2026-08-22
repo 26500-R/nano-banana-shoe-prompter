@@ -1,6 +1,6 @@
 # Complete Line-Art Composition Reference
 
-Use this file when the user supplies both a color footwear-model original and a complete black-and-white line drawing intended to control the new shot. This is a whole-composition workflow, not generic pose-only transfer: the line drawing supplies the target two-dimensional spatial template, while the color original supplies the authoritative content inventory and photographic appearance rebuilt inside it.
+Use this file when the user supplies both a color footwear-model original and a complete black-and-white line drawing intended to control the new shot. This is a whole-composition workflow, not generic pose-only transfer: the line drawing supplies the target two-dimensional spatial template, while the color original supplies the authoritative content identity and photographic appearance rebuilt inside it.
 
 ## 1. Confirm that the line drawing is complete enough
 
@@ -21,8 +21,8 @@ Honor the user's labels and state these roles once inside every standalone promp
 `图1是完整黑白构图线稿，负责最终画面的空间构图、机位、人物位置与尺度、姿势、遮挡、支撑关系、双鞋位置和主要物体布局；图2是彩色原始参考图，负责所有真实人物、鞋履产品、服装配饰、场景内容、材质颜色、光线和摄影质感。`
 
 - The **complete black-and-white line drawing** controls target ratio when the user has not specified another, frame, crop, observable camera and perspective cues, subject placement and scale, pose, occlusion, support relationships, shoe locations, and the spatial layout it actually depicts.
-- The **color original** is the authoritative source for every actual person, footwear product, garment, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
-- The line drawing is not a content inventory: an omission does not remove content supported by the color original, and an extra or inaccurate outline does not authorize new content or override the color original's design.
+- The **color original** is the authoritative source for what every retained person, footwear product, garment, accessory, prop, scene object, design, material, color, light, and photographic characteristic is and how it looks. This source authority does not require every incidental background item to appear in the new frame.
+- The line drawing is not a content inventory: an omission does not remove the person, footwear, outfit, or a worn, carried, held, or otherwise important item supported by the color original, and an extra or inaccurate outline does not authorize new content or override the color original's design.
 
 A line drawing produced by a separate pose-transfer process is an original spatial-control asset for this workflow, not an AI-generated final advertisement or a replacement content source.
 
@@ -38,7 +38,7 @@ When requirements conflict, use this order:
 
 This order separates responsibilities; it does not make an AI-generated line drawing a higher-fidelity content source than the color original.
 
-If a major drawn object has no supported counterpart in the color original and the user did not request a new object, the drawing may define only its occupancy or support relationship, not its identity or design. Conversely, preserve content from the color original even when the drawing omits it, adapting its placement to the target composition while retaining its supported use relationship, such as worn, carried, held, or placed. If an object's identity or placement remains decision-critical and genuinely unresolved, disclose the ambiguity instead of inventing it. Do not silently import unrelated furniture, products, clothing, or props from the workflow that produced the drawing.
+If a major drawn object has no supported counterpart in the color original and the user did not request a new object, the drawing may define only its occupancy or support relationship, not its identity or design. Preserve the person, footwear, outfit, and content with an important ownership or use relationship from the color original even when the drawing omits it, adapting placement to the target composition. Incidental background items need not be forced into the new frame. If an object's identity or placement remains decision-critical and genuinely unresolved, disclose the ambiguity instead of inventing it. Do not silently import unrelated furniture, products, clothing, or props from the workflow that produced the drawing.
 
 ## 4. Build a non-redundant, sufficient prompt
 
@@ -62,6 +62,6 @@ This is a role-and-decision structure, not a compression pattern or length targe
 
 Do not narrate joints, background edges, individual garment details, individual accessories, scene-object appearances, material details, shoe components, camera, pose, or layout evidence already clear in the designated references. The domain list in the single reference-role paragraph is sufficient; do not expand it into itemized visual descriptions. Do not describe the task as coloring, tracing, converting, or editing the drawing. Avoid repeated intensifiers such as `唯一来源`, `严格`, `完全相同`, and `必须` after the opening priority has resolved the issue.
 
-Apply the global model-density rules. Both model versions retain all four layers. Extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction; the fact that footwear is the hero product does not by itself justify restating generic shoe-contour, anatomy, support, contact, or shadow requirements.
+Apply the global model-density rules. When both model versions are explicitly requested, both retain all four layers. Extra Pro detail is justified only when it resolves uncertain occlusion, support, perspective, product fidelity, or scene reconstruction; the fact that footwear is the hero product does not by itself justify restating generic shoe-contour, anatomy, support, contact, or shadow requirements.
 
 Treat improved adherence observed with complete line drawings as tested workflow experience, not official Google guidance and not a guarantee for every image or model version.

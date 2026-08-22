@@ -2,6 +2,8 @@
 
 Use this when the user supplies a generated result, visible reasoning, thought images, or a controlled prompt/model comparison. Apply the generation invariants to every retry; in a line-art-guided shot, diagnose against the color original and the same complete black-and-white line drawing, treating the generated final image only as evidence.
 
+If the user provides only a generated result, diagnose its visible failures but do not write a reference-dependent retry prompt as though the result were an original asset. Ask for the original reference assets before supplying a new generation prompt. If the original assets are already present or clearly designated in the conversation, use them without asking again.
+
 If the user supplies the real photo from which an AI line drawing was derived, use it only to validate spatial adherence unless the user also designates it as a generation content source. Do not count content differences required by the actual color source as failures.
 
 ## Diagnose by impact
@@ -63,8 +65,7 @@ When prompts produce comparable fidelity, prefer the version with less repeated 
 
 ## Output
 
-Use three compact parts:
+Use compact conditional output:
 
-1. **达成之处** — only elements worth retaining.
-2. **主要偏差** — prioritized visible failures and likely instruction causes.
-3. **重新生成提示词** — by default, one fresh Nano Banana 2 prompt and one fresh Nano Banana Pro prompt following the global generation invariants; return one only when the user requests a single model.
+- When the designated original assets are available: `达成之处`, `主要偏差`, and `重新生成提示词`. The final section defaults to one fresh Nano Banana 2 prompt and follows any explicit request for Pro or both versions.
+- When originals are missing: `达成之处`, `主要偏差`, and `继续所需资产`. The final section asks once for the missing originals and contains no retry prompt.

@@ -4,11 +4,14 @@
 
 ## 中文
 
-`nano-banana-shoe-prompter` 是一个面向 Codex 的个人技能，用于分析鞋类模特参考图，并为 Nano Banana 2 与 Nano Banana Pro 编写可直接复制的单次成图提示词；它也支持使用“彩色原始参考图＋完整黑白构图线稿”重新构建镜头。
+`nano-banana-shoe-prompter` 是一个面向 Codex 的个人技能，用于分析鞋类模特参考图、按需提供可选择的动作方案，并将选中方案展开为可直接复制的 Nano Banana 2 提示词；Nano Banana Pro 按需提供。它也支持使用“彩色原始参考图＋完整黑白构图线稿”重新构建镜头。
 
 ### 参考图路由
 
-- 只有一张或多张彩色参考照片、没有完整构图线稿：由技能主动设计并明确描述机位、姿势、构图和鞋履展示方式。
+- 只有一张或多张彩色参考照片、没有完整构图线稿：在编写完整提示词时，由技能主动设计并明确描述机位、姿势、构图和鞋履展示方式。
+- 用户只发送一张图片且没有说明图片角色和所需结果时：先询问它是彩色人物原图、AI 结果图、线稿/姿势参考还是单独产品图，并确认要动作方案还是完整提示词；用户已经说清意图时直接执行，不重复提问。
+- 多张图片的角色与结果明确时直接路由；完整线稿加彩色原图默认可直接生成完整 Nano Banana 2 提示词。只有角色或目标确实影响结果且仍不明确时才问一次。
+- 选择动作方案路线后，先返回 10 个简短方案；用户回复编号后，将选中方案作为固定镜头简报展开，不擅自改成另一套动作。
 - 同时提供完整黑白构图线稿和彩色原始图：进入完整线稿路线；线稿已经明确的机位、姿势和空间布局不再转写成文字，只补充真实歧义和关键鞋履可读性要求。
 - 骨架、人体局部草图或缺少目标画幅与支撑布局的线稿不触发完整线稿路线，只作为局部提示使用。
 - 路由依据参考图的语义角色，而不是图片数量；两张普通照片仍属于彩色参考路线。
@@ -20,22 +23,25 @@
 - 锁定参考图中的人物身份、鞋款、服装、场景和摄影系统；
 - 每次重新生成都使用原始参考图，生成图只用于诊断；
 - 每条提示词完整独立，不依赖上一条提示词或生成结果；
-- 用户同时提供完整黑白构图线稿和彩色原始图时，线稿只控制目标画幅、机位、构图、人物位置与尺度、姿势、遮挡、支撑、双鞋位置和它实际表达的空间布局；彩色原始图是人物、服装、准确鞋款、配饰、道具、场景物体、设计、材质、颜色、光线与摄影质感的权威来源；
-- AI 线稿不是内容清单：线稿遗漏的彩色原图内容仍需保留，线稿多画或误画的内容不能覆盖彩色原图；需要精确复现线稿空间时，只在提示词开头声明一次强空间优先级；
+- 用户同时提供完整黑白构图线稿和彩色原始图时，线稿只控制目标画幅、机位、构图、人物位置与尺度、姿势、遮挡、支撑、双鞋位置和它实际表达的空间布局；彩色原始图决定所有被保留内容的身份、设计、材质、颜色、光线与摄影质感；
+- AI 线稿不是内容清单：人物、鞋款、服装以及穿戴、手持、携带等重要关系仍以彩色原图为准，线稿多画或误画的内容不能覆盖彩色原图；无关的偶然背景小物件不必全部塞入新构图；
 - 完整线稿模式会按线稿空间重新构建彩色原图中的同一场景，不同时冻结彩色原图原有的相机、裁切、背景透视或物体坐标；
 - 每个镜头只设置一个主要视觉目标，并按目标选择姿势、机位和镜头特征；
 - 多镜头通过支撑状态、躯干方向、腿部动作和鞋履展示目标产生实质差异，不以左右镜像或单纯改变机位充数；
-- 默认输出同一镜头的 Nano Banana 2 与 Nano Banana Pro 两个版本；
+- 完整提示词默认只输出 Nano Banana 2；只有用户明确要求时才输出 Nano Banana Pro；
 - Pro 仅为会改变空间、遮挡、产品还原或优先级决策的部分增加细节；
 - 输出前删除重复语义并检查人体、场景结构、镜头与产品要求是否冲突。
 
 技能只编写提示词；除非用户另行要求，否则不会直接生成图片。
 
-### 输出计数
+### 两阶段动作选择与输出计数
 
-- `1 个镜头/姿势/方案`：默认生成两个提示词版本。
-- `10 组姿势方案`：共 10 个镜头、20 条提示词。
-- `10 条提示词`：总数就是 10 条；模型分配不清楚时会先确认。
+- 单张图片且用途不明：先确认路线，不直接输出动作菜单或完整提示词。
+- 明确选择动作探索：输出 10 个简短动作方案，不生成提示词。
+- 回复 `3`：将第 3 个方案展开为 1 条完整 Nano Banana 2 提示词。
+- 回复 `3、7`：分别展开为 2 条完整 Nano Banana 2 提示词。
+- 明确要求 Nano Banana Pro 或两个版本：严格按要求输出；未要求时只输出 Nano Banana 2。
+- 明确要求 `10 条完整提示词`：直接按字面输出 10 条，默认均为 Nano Banana 2。
 
 ### 安装
 
@@ -55,29 +61,39 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 
 ### 使用示例
 
-单镜头：
+单张图片用途不明：
 
 ```text
-使用 $nano-banana-shoe-prompter 分析这张原始参考图，并分别生成 Nano Banana 2 与 Nano Banana Pro 的完整单次成图提示词。
+使用 $nano-banana-shoe-prompter 判断这张图片适合走哪条路线；如果我的意图不明确，先让我选择。
 ```
 
-多镜头：
+选中方案：
 
 ```text
-使用 $nano-banana-shoe-prompter，根据这张原始参考图设计 10 组不同姿势的镜头方案。每组分别输出 Nano Banana 2 与 Nano Banana Pro 版本，共 20 条完整提示词。
+展开第 3、7 个方案，默认只输出完整的 Nano Banana 2 提示词。
 ```
 
 诊断：
 
 ```text
-使用 $nano-banana-shoe-prompter 比较原始参考图和生成结果，说明达成之处与主要偏差，并分别给出 Nano Banana 2 与 Nano Banana Pro 的全新完整提示词；仍使用原始参考图重新生成。
+使用 $nano-banana-shoe-prompter 比较原始参考图和生成结果，说明达成之处与主要偏差，并给出新的完整 Nano Banana 2 提示词；仍使用原始参考图重新生成。
 ```
 
 彩色原始图加完整黑白构图线稿：
 
 ```text
-使用 $nano-banana-shoe-prompter，以彩色原始图作为人物、服装、鞋款、场景外观和摄影质感参考，以完整黑白线稿作为目标机位、构图、人物姿势、支撑关系和主要场景布局参考，生成完整独立的 Nano Banana 2 与 Nano Banana Pro 提示词。
+使用 $nano-banana-shoe-prompter，以彩色原始图作为人物、服装、鞋款、场景外观和摄影质感参考，以完整黑白线稿作为目标机位、构图、人物姿势、支撑关系和主要场景布局参考，生成完整独立的 Nano Banana 2 提示词。
 ```
+
+### 更新日志
+
+#### v0.2.0 — 2026-08-22
+
+- 增加图片角色与输出意图确认门，覆盖彩色人物原图、AI 结果、线稿/姿势参考和单独产品图；明确多图何时直接路由、何时只问一次。
+- 单图动作探索改为先给 10 个精简方案，用户选中后再按固定镜头简报展开；完整提示词默认只输出 Nano Banana 2。
+- 明确彩色原图的内容权威不等于强制复制所有偶然背景物；保留人物、鞋履、服装及重要使用关系。
+- 诊断缺少原始资产时只报告偏差并索取源图，不把 AI 结果当作重试源图。
+- 合并重复模型规则，并增加条件性的纯摄影画面处理，避免无意义扩写。
 
 ### 文件
 
@@ -94,11 +110,14 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 
 ## English
 
-`nano-banana-shoe-prompter` is a personal Codex skill that analyzes footwear-model references and writes copy-ready, single-pass prompts for Nano Banana 2 and Nano Banana Pro. It also supports recomposing a shot from a color original plus a complete black-and-white composition line drawing.
+`nano-banana-shoe-prompter` is a personal Codex skill that analyzes footwear-model references, offers selectable action concepts on request, and expands selected concepts into copy-ready Nano Banana 2 prompts. Nano Banana Pro is available on request. It also supports recomposing a shot from a color original plus a complete black-and-white composition line drawing.
 
 ### Reference routing
 
-- With one or more color photographs and no complete composition drawing, the skill designs and explicitly describes the camera, pose, composition, and footwear presentation.
+- With one or more color photographs and no complete composition drawing, the skill explicitly designs the camera, pose, composition, and footwear presentation when constructing a full prompt.
+- With exactly one unexplained image, the skill first confirms whether it is a color person original, AI result, line-art/pose reference, or product-only reference, and whether the user wants action concepts or a complete prompt. Explicit intent bypasses this question.
+- Multiple images route directly when their roles and deliverable are clear; a complete drawing plus a color original can proceed directly to a complete Nano Banana 2 prompt. Only decision-critical ambiguity triggers one concise question.
+- After the pose-discovery route is selected, the skill returns 10 brief concepts; selected concepts become fixed shot briefs and are expanded without being redesigned.
 - With both a complete black-and-white composition drawing and a color original, the complete-line-art route applies: camera, pose, and spatial layout already clear in the drawing are not transcribed into prose; only genuine ambiguity and critical footwear-readability decisions are added.
 - A skeleton, body-only sketch, or drawing without the target frame and support layout does not trigger the complete-line-art route and is used only as partial guidance.
 - Routing follows semantic reference roles rather than image count; two ordinary photographs remain in the content-reference route.
@@ -110,22 +129,25 @@ C:\Users\<用户名>\.codex\skills\nano-banana-shoe-prompter
 - Preserve the referenced identity, exact footwear, outfit, scene, and photographic system.
 - Start every retry from the original reference; generated images are diagnosis-only.
 - Make every prompt complete and independent of previous prompts or results.
-- When a complete black-and-white composition drawing and a color original are supplied together, let the drawing control only the target frame, camera, composition, subject placement and scale, pose, occlusion, support, shoe positions, and the spatial layout it actually depicts; treat the color original as authoritative for every person, garment, exact footwear product, accessory, prop, scene object, design, material, color, light, and photographic characteristic.
-- An AI line drawing is not a content inventory: content omitted from it remains supported by the color original, while extra or inaccurate drawn content cannot override the color original. When exact spatial adherence is required, state that winning priority once at the start of the prompt.
+- When a complete black-and-white composition drawing and a color original are supplied together, let the drawing control only the target frame, camera, composition, subject placement and scale, pose, occlusion, support, shoe positions, and the spatial layout it actually depicts; use the color original as the authority for the identity and appearance of all retained content.
+- An AI line drawing is not a content inventory: preserve the person, footwear, outfit, and important worn, carried, held, or used relationships from the color original, while incidental background items need not all appear and extra or inaccurate drawn content cannot override the color source.
 - Rebuild the same color scene inside the drawing's spatial arrangement instead of also freezing the color original's old camera, crop, background perspective, or object coordinates.
 - Give each shot one dominant objective and choose pose, camera, and lens character accordingly.
 - Create meaningful shot-set variation through support state, torso direction, leg action, and footwear presentation; mirroring sides or changing only the camera does not count.
-- Return aligned Nano Banana 2 and Nano Banana Pro versions by default.
+- Default complete prompts to Nano Banana 2 and return Nano Banana Pro only when explicitly requested.
 - Add Pro detail only when it changes a spatial, occlusion, product-fidelity, or priority decision.
 - Remove repeated meaning and resolve conflicts before output.
 
 The skill writes prompts and does not generate images unless the user separately requests generation.
 
-### Counting outputs
+### Two-stage action selection and output counting
 
-- `1 shot/pose/concept` produces two prompt versions by default.
-- `10 shot concepts` produce 10 shots and 20 prompt blocks.
-- `10 prompts` means 10 prompt blocks in total; the skill asks when model allocation is unclear.
+- One image with ambiguous intent first produces a route question, not concepts or prompts.
+- Explicit pose discovery produces 10 brief action concepts and no prompt blocks.
+- Replying `3` expands concept 3 into one complete Nano Banana 2 prompt.
+- Replying `3, 7` expands both concepts into two complete Nano Banana 2 prompts.
+- Follow an explicit request for Nano Banana Pro or both versions; otherwise return Nano Banana 2 only.
+- An explicit request for `10 complete prompts` produces 10 prompt blocks, all Nano Banana 2 by default.
 
 ### Installation
 
@@ -145,29 +167,39 @@ Reopen the task or refresh Codex after installation.
 
 ### Examples
 
-Single shot:
+Ambiguous single-image intake:
 
 ```text
-Use $nano-banana-shoe-prompter to analyze this original reference and return complete Nano Banana 2 and Nano Banana Pro prompts for the same shot.
+Use $nano-banana-shoe-prompter to determine how this image should be used. If my intent is unclear, ask me to choose a route first.
 ```
 
-Shot set:
+Selected concepts:
 
 ```text
-Use $nano-banana-shoe-prompter to design 10 distinct pose concepts from this original reference. Return Nano Banana 2 and Nano Banana Pro versions for each concept, for 20 complete prompts total.
+Expand concepts 3 and 7 into complete Nano Banana 2 prompts.
 ```
 
 Diagnosis:
 
 ```text
-Use $nano-banana-shoe-prompter to compare the original reference and generated result, report what worked and the main drift, then return fresh complete Nano Banana 2 and Nano Banana Pro prompts to use with the original reference.
+Use $nano-banana-shoe-prompter to compare the original reference and generated result, report what worked and the main drift, then return a fresh complete Nano Banana 2 prompt to use with the original reference.
 ```
 
 Color original plus complete black-and-white composition drawing:
 
 ```text
-Use $nano-banana-shoe-prompter with the color original as the source for the person, outfit, exact footwear, scene appearance, and photographic character, and the complete black-and-white line drawing as the target camera, composition, pose, support, and major scene-layout reference. Return complete standalone Nano Banana 2 and Nano Banana Pro prompts.
+Use $nano-banana-shoe-prompter with the color original as the source for the person, outfit, exact footwear, scene appearance, and photographic character, and the complete black-and-white line drawing as the target camera, composition, pose, support, and major scene-layout reference. Return a complete standalone Nano Banana 2 prompt.
 ```
+
+### Changelog
+
+#### v0.2.0 — 2026-08-22
+
+- Added an image-role and deliverable gate covering color person originals, AI results, line-art/pose references, and product-only images, with direct routing for clear multi-image requests.
+- Changed single-image pose exploration to 10 brief concepts followed by fixed-brief expansion; complete prompts now default to Nano Banana 2 only.
+- Clarified that color-source authority does not require every incidental background item to appear, while preserving the person, footwear, outfit, and important use relationships.
+- When diagnosis lacks original assets, the skill reports visible drift and requests the sources without treating the AI result as a retry source.
+- Consolidated model-selection wording and added conditional clean-photography handling without prohibition-list inflation.
 
 ### Files
 
